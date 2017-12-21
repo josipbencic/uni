@@ -62,7 +62,7 @@ brisanje elemenata, traženje elementa, sortiranje.
   
 
   
- **Primjer 1**: `[accumulate()](http://en.cppreference.com/w/cpp/algorithm/accumulate)` (numerički algoritam). 
+**Primjer 1**: [accumulate](http://en.cppreference.com/w/cpp/algorithm/accumulate) (numerički algoritam). 
 Iteratori dozvoljavaju primjenu na svaki tip na kojem je definiran operator +. 
   
 ```C++
@@ -84,7 +84,7 @@ Iteratori dozvoljavaju primjenu na svaki tip na kojem je definiran operator +.
 ```
  
 **Primjer 2**.  Spremnik možemo inicijalizirati pomoću 
-`[fill](http://en.cppreference.com/w/cpp/algorithm/fill)`. 
+[fill](http://en.cppreference.com/w/cpp/algorithm/fill). 
  
 
 ```C++
@@ -95,7 +95,7 @@ Iteratori dozvoljavaju primjenu na svaki tip na kojem je definiran operator +.
 
 
  
-**Primjer 3**. Uspoređivanje spremnika s `[equal](http://en.cppreference.com/w/cpp/algorithm/equal)`. 
+**Primjer 3**. Uspoređivanje spremnika s [equal](http://en.cppreference.com/w/cpp/algorithm/equal). 
  
 ```C++
     // Različite spremnike možemo usporediti s equal
@@ -105,7 +105,7 @@ Iteratori dozvoljavaju primjenu na svaki tip na kojem je definiran operator +.
     std::cout << "Spremnici " << ((yes) ? "su " : "nisu ") << "jednaki.\n";
 ```
  
-**Primjer 4**. Promjena vrijednosti s `[replace](http://en.cppreference.com/w/cpp/algorithm/replace)`.
+**Primjer 4**. Promjena vrijednosti s [replace](http://en.cppreference.com/w/cpp/algorithm/replace).
  
 ```C++
     // replace -- mijenja staru vrijednost za novu vrijednost
@@ -116,7 +116,7 @@ Iteratori dozvoljavaju primjenu na svaki tip na kojem je definiran operator +.
     std::cout << std::endl;
 ```
  
-**Primjer 5**. Kopiranje spremnika s `[copy](http://en.cppreference.com/w/cpp/algorithm/copy)`. Dolazni spremnik (onaj u koji se
+**Primjer 5**. Kopiranje spremnika s [copy](http://en.cppreference.com/w/cpp/algorithm/copy). Dolazni spremnik (onaj u koji se
 kopira) mora imati dovoljno mjesta za prihvatiti sve članove što algoritam kopiranja ne provjerava.
  
 
@@ -140,9 +140,9 @@ koji prilikom dereferenciranja insertira element u spremnik. Ta se operacija mo�
 obavljati pomoći metoda: `insert()`, `push_back()` i `push_front()` pa imamo :
  
 
-*     `inserter`
-*     `back_inserter`
-*     `front_inserter`
+* `inserter`
+* `back_inserter`
+* `front_inserter`
 
  
 [back\_inserter it](http://en.cppreference.com/w/cpp/iterator/back_inserter) naredbu `*it = value` prevodi u `push_back(value)` .
@@ -185,7 +185,7 @@ U ovom primjeru ćemo ubaciti elemente iz `ilist1` u `ilist2` na mjesto ispred p
     // rezultat: 6,5,4,3,1,2,3,4,5,6,2,1,1,2,3,4,5,6,
 ```
 
-<h4>Iostream iteratori</h4>
+## Iostream iteratori
 
  
 `istream_iterator` služi za čitanje s ulaznog streama, dok `ostream_iterator` služi
@@ -372,25 +372,22 @@ Ispravna verzija bi bila:
     
   Biblioteka slučajnih brojeva je dana u zaglavlju `<random>` i uključuje:
    
-  <OL>
-    <LI>  Generatore (pseudo) slučajnih brojeva s uniformnom distribucijom
-      ("Random number engines");
-    <LI>Različite distribucije -- uniformna, normalna,  poissonova itd.
+* Generatore (pseudo) slučajnih brojeva s uniformnom distribucijom ("Random number engines");
+* Različite distribucije -- uniformna, normalna,  poissonova itd.
      Svaka distribucija uzima generator slučajnih brojeva i generira brojeve sa zadanom 
      statističkom distribucijom. 
 
-  </OL>
    
-  Detalji se mogu naći na
-  [en.cppreference.com/w/cpp/numeric/random](http://en.cppreference.com/w/cpp/numeric/random).
-   
-
-   
-  Vidi i [predavanja](../../../Ch2/auxiliary.html).
+Detalji se mogu naći na
+[en.cppreference.com/w/cpp/numeric/random](http://en.cppreference.com/w/cpp/numeric/random).
    
 
    
-  I generatori slučajnih brojeva (SB) i sve distribucije djeluju kao funkcijski objekti.
+Vidi i [predavanja](../../../Ch2/auxiliary.html).
+   
+
+   
+I generatori slučajnih brojeva (SB) i sve distribucije djeluju kao funkcijski objekti.
   Pozivom generatora SB (bez argumenata) generira se sljedeći SB. Isto tako, pozivom 
   distribucije (sa generatorom SB kao argumentom) dobiva se novi SB po toj distribuciji. 
   Na generatoru je nužno pozvati metodu `seed()` s nekim  promjenjivim brojem (na primjer 
@@ -439,12 +436,12 @@ Iskoristimo normalnu distrinuciju sa očekivanjem 0 i standardnom devijacijom 2:
 **Zadatak 6**. Generirati vektor od 20 cijelih brojeva po binomnoj distribuciji (npr. t=26, p=0.4).
 Na generiranom vektoru napraviti ove operacije i ispisati rezultat. 
 
-*     Sortirati ga pomoću algoritma [sort](http://en.cppreference.com/w/cpp/algorithm/sort).
-*     Sortirati prvih 5 elemenata niza pomoću 
+* Sortirati ga pomoću algoritma [sort](http://en.cppreference.com/w/cpp/algorithm/sort).
+* Sortirati prvih 5 elemenata niza pomoću 
   [partial\_sort](http://en.cppreference.com/w/cpp/algorithm/partial_sort).
-*     Particionirati niz ako da peti element bude na svom mjestu, ispred njega manji elementi, a iza 
+* Particionirati niz ako da peti element bude na svom mjestu, ispred njega manji elementi, a iza 
          njega veći elementi. Koristiti [nth\_element](http://en.cppreference.com/w/cpp/algorithm/nth_element). 
-*      Particionirati elemente tako da svi elementi manji od 10 budu ispred elemenata većih ili jednakih 10. 
+* Particionirati elemente tako da svi elementi manji od 10 budu ispred elemenata većih ili jednakih 10. 
      Prvi dio izdvojiti u novi vektor i ispisati ga. Koristiti algoritam
   [partition](http://en.cppreference.com/w/cpp/algorithm/partition) i lambda izraz. 
 
