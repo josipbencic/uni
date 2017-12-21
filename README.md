@@ -6,10 +6,10 @@ prevodiocem i stoga je na raspolaganju svakom programu. Njen centralni dio
 je STL (_Standard template library_). Generalno standardna biblioteka se 
 sastoji od ovih komponenti:
    
-*       Pomoćne klase, funkcije i konstante (_Utilities_);
-*       Spremnici, iteratori, algoritmi
-*       Ulazno izlazna biblioteka i internacionalizacija;
-*       Podrška za paralelno programiranje.
+* Pomoćne klase, funkcije i konstante (_Utilities_);
+* Spremnici, iteratori, algoritmi
+* Ulazno izlazna biblioteka i internacionalizacija;
+* Podrška za paralelno programiranje.
 
    
   Referenca: [en.cppreference.com/w/cpp](http://en.cppreference.com/w/cpp).
@@ -18,22 +18,22 @@ sastoji od ovih komponenti:
   
 Centralni dio standardne biblioteke se sastoji od tri komponente:
   
-*      Spremnici;
-*      Iteratori;
-*      Algoritmi.
+* Spremnici;
+* Iteratori;
+* Algoritmi.
 
 ##   Spremnici
 
 
-*    **Sekvencijalni spremnici**: array, vector, string, deque, list, forward\_list;
+* **Sekvencijalni spremnici**: array, vector, string, deque, list, forward\_list;
      U sekvencijalnom spremniku element je određen svojim položajem u spremniku
-*     **Asocijativni spremnici**: set multiset, map, multimap, unordered\_set, unordered\_multiset, unordered\_map,
+* **Asocijativni spremnici**: set multiset, map, multimap, unordered\_set, unordered\_multiset, unordered\_map,
    unordered\_multimap;
      U asocijativnom spremniku položaj elementa ovisi o njegovoj vrijednosti ili o vrijednosti _ključa_.  
      Imamo sortirane i nesortirane asocijativne spremnike. 
-*     **Adapteri spremnika**: stack, queue, priority\_queue
+* **Adapteri spremnika**: stack, queue, priority\_queue
        Adapteri adaptiraju spremnike dajući im drugo sučelje.
-*      **Specijalni spremnici**: bitset
+* **Specijalni spremnici**: bitset
 
   
  Operacije nad spremnicima vršimo pomoću metoda članica spremnika ili pomoću algoritama. 
