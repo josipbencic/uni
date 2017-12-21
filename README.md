@@ -3,7 +3,7 @@
    
 C++ standardna biblioteka predstavlja programsku biblioteku koja dolazi s
 prevodiocem i stoga je na raspolaganju svakom programu. Njen centralni dio 
-je STL (_Standard template library_). Generalno standardna biblioteka se 
+je STL (_Standard Template Library_). Generalno standardna biblioteka se 
 sastoji od ovih komponenti:
    
 * Pomoćne klase, funkcije i konstante (_Utilities_);
@@ -27,12 +27,11 @@ Centralni dio standardne biblioteke se sastoji od tri komponente:
 
 * **Sekvencijalni spremnici**: array, vector, string, deque, list, forward\_list;
      U sekvencijalnom spremniku element je određen svojim položajem u spremniku
-* **Asocijativni spremnici**: set multiset, map, multimap, unordered\_set, unordered\_multiset, unordered\_map,
+* **Asocijativni spremnici**: set, multiset, map, multimap, unordered\_set, unordered\_multiset, unordered\_map,
    unordered\_multimap;
      U asocijativnom spremniku položaj elementa ovisi o njegovoj vrijednosti ili o vrijednosti _ključa_.  
      Imamo sortirane i nesortirane asocijativne spremnike. 
-* **Adapteri spremnika**: stack, queue, priority\_queue
-       Adapteri adaptiraju spremnike dajući im drugo sučelje.
+* **Adapteri spremnika**: stack, queue, priority\_queue. Adapteri adaptiraju spremnike dajući im drugo sučelje.
 * **Specijalni spremnici**: bitset
 
   
@@ -42,7 +41,7 @@ Centralni dio standardne biblioteke se sastoji od tri komponente:
   
 
   
- Osnovne **operacije** na spremnicima: kreiranje spremnika, ubacivanje elemenata, transformacija elemenata, 
+ Osnovne **operacije** na spremnicima su sljedeće: kreiranje spremnika, ubacivanje elemenata, transformacija elemenata, 
 brisanje elemenata, traženje elementa, sortiranje.
   
 
@@ -83,7 +82,7 @@ Iteratori dozvoljavaju primjenu na svaki tip na kojem je definiran operator +.
     std::cout << "s = " << s << std::endl;
 ```
  
-**Primjer 2**.  Spremnik možemo inicijalizirati pomoću 
+**Primjer 2**.  Spremnik možemo inicijalizirati pomoću algoritma
 [fill](http://en.cppreference.com/w/cpp/algorithm/fill). 
  
 
@@ -95,7 +94,7 @@ Iteratori dozvoljavaju primjenu na svaki tip na kojem je definiran operator +.
 
 
  
-**Primjer 3**. Uspoređivanje spremnika s [equal](http://en.cppreference.com/w/cpp/algorithm/equal). 
+**Primjer 3**. Uspoređivanje spremnika pomoću algoritma  [equal](http://en.cppreference.com/w/cpp/algorithm/equal). 
  
 ```C++
     // Različite spremnike možemo usporediti s equal
@@ -105,7 +104,7 @@ Iteratori dozvoljavaju primjenu na svaki tip na kojem je definiran operator +.
     std::cout << "Spremnici " << ((yes) ? "su " : "nisu ") << "jednaki.\n";
 ```
  
-**Primjer 4**. Promjena vrijednosti s [replace](http://en.cppreference.com/w/cpp/algorithm/replace).
+**Primjer 4**. Promjena vrijednosti pomoću algoritma [replace](http://en.cppreference.com/w/cpp/algorithm/replace).
  
 ```C++
     // replace -- mijenja staru vrijednost za novu vrijednost
@@ -116,7 +115,8 @@ Iteratori dozvoljavaju primjenu na svaki tip na kojem je definiran operator +.
     std::cout << std::endl;
 ```
  
-**Primjer 5**. Kopiranje spremnika s [copy](http://en.cppreference.com/w/cpp/algorithm/copy). Dolazni spremnik (onaj u koji se
+**Primjer 5**. Kopiranje spremnika pomoću algoritma
+[copy](http://en.cppreference.com/w/cpp/algorithm/copy). Dolazni spremnik (onaj u koji se
 kopira) mora imati dovoljno mjesta za prihvatiti sve članove što algoritam kopiranja ne provjerava.
  
 
@@ -125,7 +125,7 @@ kopira) mora imati dovoljno mjesta za prihvatiti sve članove što algoritam kop
     //              što algoritam ne provjerava
     std::deque<double> deq;
     deq.resize(ivec.size());
-    // Kopiraj. Prvo dolazi polazni, a zatim dolazni spremnik
+    // Kopiraj. Prvo navodimo polazni, a zatim dolazni spremnik
     std::copy(ivec.begin(), ivec.end(), deq.begin());
     std::cout << "deq = ";
     for(auto &amp; x : deq) std::cout << x << ",";
@@ -144,8 +144,7 @@ obavljati pomoći metoda: `insert()`, `push_back()` i `push_front()` pa imamo :
 * `back_inserter`
 * `front_inserter`
 
- 
-[back\_inserter it](http://en.cppreference.com/w/cpp/iterator/back_inserter) naredbu `*it = value` prevodi u `push_back(value)` .
+[back\_inserter](http://en.cppreference.com/w/cpp/iterator/back_inserter) naredbu `*it = value` prevodi u `push_back(value)` .
  
 
 ```C++
@@ -159,7 +158,7 @@ obavljati pomoći metoda: `insert()`, `push_back()` i `push_front()` pa imamo :
 ```
 
  
-[front\_inserter it](http://en.cppreference.com/w/cpp/iterator/front_inserter) naredbu `*it = value` prevodi u `push_front(value)` .
+[front\_inserter](http://en.cppreference.com/w/cpp/iterator/front_inserter) naredbu `*it = value` prevodi u `push_front(value)` .
  
 
 ```C++
@@ -222,7 +221,7 @@ s Return i Ctrl-D (linux) ili s Return i Ctrl-Z (windows).
  
 Kod `ostream_iterator`-a operator dereferenciranja i operator 
 inkrementiranja (++) ne rade ništa. Vrijednost na stream ispisuje operator pridruživanja.
-Ovdje nemamo end-iteratora,ali konstrutor iteratora pored streama mora kao argument 
+Ovdje nemamo end-iteratora,ali konstruktor iteratora pored streama mora kao argument 
 dobiti i separator podataka (kao C-string). Za pisanje se koristi operator <<. 
  
 
@@ -250,7 +249,7 @@ dobiti i separator podataka (kao C-string). Za pisanje se koristi operator <<.
 
  
 **Zadatak 1**. Učitajte niz cijelih brojeva iz datoteke [brojevi.txt](brojevi.txt) i smjestite ih u `std::vector`. 
-Svako pojavljivanje nule u tom nizu zamijenite s 9 i ispišite niz na `std::cout`. Za upis i ispis koristiti iostream iteratore.
+Svako pojavljivanje nule u tom nizu zamijenite s 9 i ispišite niz na `std::cout`. Za upis i ispis koristiti `iostream` iteratore.
  
 
  
