@@ -539,7 +539,9 @@ u skupu i u sortiranom vektoru. Za mjerenje vremena moramo uključiti zaglavlje
     auto t_begin = std::chrono::system_clock::now();
     // kod kojem mjerimo vrijeme izvršavanja
     auto t_end = std::chrono::system_clock::now();
-    std::cout << " vector Time = " << std::chrono::duration_cast<chrono::nanoseconds>(t_end-t_begin).count() << " nano sec\n";
+    std::cout << " vector Time = " 
+              << std::chrono::duration_cast<chrono::nanoseconds>(t_end-t_begin).count() 
+              << " nano sec\n";
 ```
  
 U ovom primjeru je vrijeme mjereno i nanosekundama. Za više detalja vidjeti [ovdje](../../../Ch2/auxiliary.html#vrijeme).
