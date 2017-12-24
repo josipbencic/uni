@@ -2,9 +2,9 @@
 
 int main()
 {
-  zadatak1();
-  zadatak2();
-  zadatak3();
+	std::vector<int> vec = zadatak1("../../src/brojevi.txt");
+    zadatak2();
+    zadatak3();
 
-  return 0;
+    return 0;
 }

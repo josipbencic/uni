@@ -1,6 +1,11 @@
-// Ubaciti potrebne include datoteke
+#ifndef __ZADATAK_IS_INCLUDED__             
+#define __ZADATAK_IS_INCLUDED__             
 
-void zadatak1();
+#include <vector>
+#include <string>
+
+std::vector<int> zadatak1(std::string const &);
 void zadatak2();
 void zadatak3();
 
+#endif

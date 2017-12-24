@@ -248,8 +248,10 @@ dobiti i separator podataka (kao C-string). Za pisanje se koristi operator <<.
 
 
  
-**Zadatak 1**. Učitajte niz cijelih brojeva iz datoteke [brojevi.txt](brojevi.txt) i smjestite ih u `std::vector`. 
-Svako pojavljivanje nule u tom nizu zamijenite s 9 i ispišite niz na `std::cout`. Za upis i ispis koristiti `iostream` iteratore.
+**Zadatak 1**. Unutar funkcije učitajte niz cijelih brojeva iz datoteke [brojevi.txt](brojevi.txt) i 
+smjestite ih u `std::vector`. Svako pojavljivanje nule u tom nizu zamijenite s 9 i vratite vektor kao 
+povratnu vrijednost funkcije. Za upis koristiti `iostream` iteratore, a za zamjenu vrijednosti algoritam iz 
+standardne biblioteke. 
  
 
  
