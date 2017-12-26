@@ -3,9 +3,10 @@
 
 #include <vector>
 #include <string>
+#include <list>
 
 std::vector<int> zadatak1(std::string const &);
 void zadatak2();
-void zadatak3();
+std::list<int> zadatak3();
 
 #endif
