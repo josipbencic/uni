@@ -1,0 +1,21 @@
+sudo: false
+
+language:
+  - cpp
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+
+
+script:
+  - mkdir -p build
+  - cd build
+  - cmake ..
+  - make
+  - ./test/test_zad
+
+
+notifications:
+email: false
