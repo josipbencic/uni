@@ -12,7 +12,11 @@ TEST(Zadatak1, Vrijednosti) {
 
 }
 
+TEST(Zadatak3, Vrijednosti) { 
 
+	std::list<int> l = zadatak3();
+	
+}
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
