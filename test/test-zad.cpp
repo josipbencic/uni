@@ -19,9 +19,9 @@ TEST(STL, Zadatak1) {
 TEST(STL, Zadatak2) {
     zadatak2("../src/fpbrojevi.txt");
 
-    ifstream in1("src/3cols.txt");
+    ifstream in1("3cols.txt");
     if(!in1)
-        throw runtime_error("Cannot open src/3cols.txt");
+        throw runtime_error("Cannot open 3cols.txt");
 
     ifstream in2("../src/3cols.txt");
     if(!in2)
