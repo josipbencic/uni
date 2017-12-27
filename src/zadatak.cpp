@@ -7,6 +7,8 @@
 #include <iterator>
 #include <list>
 #include <stdexcept>
+#include <cmath>
+#include <iomanip>
 
 std::vector<int> zadatak1(std::string const & file_name){
   // Implementacija zadatka 1
@@ -18,12 +20,36 @@ std::vector<int> zadatak1(std::string const & file_name){
 
    std::vector<int> vec(isi_in, isi_end);
    std::replace(vec.begin(), vec.end(), 0, 9);
-
+   in.close();
    return vec;
 }
 
-void zadatak2(){
+void zadatak2(std::string const & file_name){
   // Implementacija zadatka 2
+  std::ifstream in(file_name);
+  if(!in)
+      throw std::runtime_error("File "+ file_name +" not found.");
+
+  std::vector<float> vals;
+  std::istream_iterator<float> isi_in(in);
+  std::istream_iterator<float> isi_end;
+//  while(isi_in != isi_end)
+//      vals.push_back(*isi_in++);
+
+  std::copy(isi_in, isi_end, std::back_inserter(vals));
+  in.close();
+
+  std::ofstream out("3cols.txt");
+  if(!out)
+      throw std::runtime_error("File 3cols.txt cannot be created.");
+  out.precision(6);
+  for(auto const & x : vals)
+      out << std::scientific << std::setw(13) << std::showpos << x << " "
+          << std::scientific << std::setw(13) << std::showpos << std::sin(x) << " "
+          << std::scientific << std::setw(13) << std::showpos << std::exp(x)
+          << std::endl;
+
+  out.close();
 }
 
 std::list<int> zadatak3(){
