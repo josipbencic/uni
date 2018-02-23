@@ -28,13 +28,13 @@ koja implementira sortiranje umetanjem i dohvaća elemente vektora kroz cjelobro
 i implementira a sortiranje umetanjem. Ova verzija od algoritama koristi samo std::next i std::prev.
 
 ```C++
-// Verzija koja uzima iterator range -- koristiti samo std::next i std::prev
+// Verzija koja uzima raspon iteratora -- koristiti samo std::next i std::prev
 template <typename Iter>
 void insertion_sort(Iter first, Iter last) {
  // ...
 }
 ```
-3) Napisati verziju algoritma koja koristi algoritme   rotate i upper_bound
+3) Napisati verziju algoritma koja koristi algoritme std::rotate i std::upper_bound
 
 ```C++
   
