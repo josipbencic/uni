@@ -44,5 +44,5 @@ void insertion_sort1(Iter first, Iter last)
  // ...
 }
 ```
-Testirati sa zadanom main funkcijom.
+Testirati kod u main funkciji.
 
