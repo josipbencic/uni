@@ -15,7 +15,7 @@ script:
   - cd build
   - CXX=/usr/bin/g++-5.4 cmake ..
   - make
-  - ./test/test_isort
+  - make test
 
 
 notifications:
