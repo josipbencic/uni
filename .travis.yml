@@ -15,8 +15,8 @@ script:
   - cd build
   - CXX=/usr/bin/g++-5.4 cmake ..
   - make
-  - ./test/test_zad
+  - make test
 
 
 notifications:
-email: false
+email: true
