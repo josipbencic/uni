@@ -1,92 +1,99 @@
+## score matrix
+def compute_sm(x, y, n, m, bm, acids):
+    sm=[]
+    tmp=[]
+    for i in range(m+1):
+        tmp.append(0)
+    for i in range(n+1):
+        sm.append(tmp[:])
 
-f1=open("acids.txt", "r") ## reading acids
-ak=f1.readline()
-f1.close()
+    ## edge
+    for i in range(n+1):
+        sm[i][0]=-8*i
+    for i in range(m+1):
+        sm[0][i]=-8*i
 
-bm=[] ## reading matrix
-f1=open("blosum50.txt", "r")
-for i in range(20):
-    line=f1.readline()
-    vc=line.split()
-    bm.append(vc[:])
-for i in range(20): ## integer matrix
-    for j in range(20):
-        bm[i][j]=int(bm[i][j])
+    ## recursion
+    for i in range(1,n+1):
+        for j in range(1,m+1):
+            tmp=[]
+            tmp.append(sm[i-1][j]-8)
+            tmp.append(sm[i][j-1]-8)
+            bb=bm[acids.index(y[i-1])][acids.index(x[j-1])]
+            tmp.append(sm[i-1][j-1]+bb)
+            tmp.sort()
+            sm[i][j]=tmp[2]
+    return sm
 
-x='HPEW'
-y='PWAA'
-m=len(x)
-n=len(y)
+## load acids and blosum50 matrix from the disk
+def load_acids_blosum():
+    ## reading acids
+    f1=open("acids.txt", "r")
+    acids =f1.readline()
+    f1.close()
 
-sm=[] ## score matrix
-tmp=[]
-for i in range(m+1):
-    tmp.append(0)
-for i in range(n+1):
-    sm.append(tmp[:])
+    ## reading matrix
+    bm=[]
+    f1=open("blosum50.txt", "r")
+    for i in range(20):
+        line=f1.readline()
+        vc=line.split()
+        bm.append(vc[:])
+    
+    ## integer matrix
+    for i in range(20):
+        for j in range(20):
+            bm[i][j]=int(bm[i][j])
 
-## rubni uvjeti
-for i in range(n+1):
-    sm[i][0]=-8*i
-for i in range(m+1):
-    sm[0][i]=-8*i
-
-## rekurzija
-for i in range(1,n+1):
-    for j in range(1,m+1):
-        tmp=[]
-        tmp.append(sm[i-1][j]-8)
-        tmp.append(sm[i][j-1]-8)
-        bb=bm[ak.index(y[i-1])][ak.index(x[j-1])]
-        tmp.append(sm[i-1][j-1]+bb)
-        tmp.sort()
-        sm[i][j]=tmp[2]
+    return acids, bm
 
 
-up = ""
-down = ""
-
-def traceback(i, j):
-    global up
-    global down
-    global x
-    global y
-
-    print(i, j)
-    # kraj
+##  reconstruct path from score matrix
+##  yields the optimal sequence alignment
+def traceback(i, j, x, y, sm, bm, acids):
+    # end
     if i == 0 and j == 0:
-        return
-    # lijevi rub
+        return "", ""
+    # left end
     if j == 0:
-        up = up + '_'
-        down = down + y[i-1]
-        return traceback(i - 1, j)
-
-    # gornji rub
+        u, d = traceback(i - 1, j, x, y, sm, bm, acids)
+        return u + '_', d + y[i-1]
+    # up end
     if i == 0:
-        up = up + x[j-1]
-        down = down +  '_'
-        return traceback(i, j - 1)
+        u, d = traceback(i, j - 1, x, y, sm, bm, acids)
+        return u + x[j-1], d + '_'
 
     s1 = sm[i-1][j] - 8
     s2 = sm[i][j-1] - 8
-    s3 = sm[i-1][j-1] + bm[i][j]
-
-    if s1 >= s2 and s1 >= s3:
-        up = up + '_'
-        down = down + y[i-1]
-        return traceback(i - 1, j)
-
-    if s2 >= s1 and s2 >= s3:
-        up = up + x[j-1]
-        down = down + '_'
-        return traceback(i, j - 1)
+    s3 = sm[i-1][j-1] + bm[acids.index(y[i-1])][acids.index(x[j-1])]
     
-    up = up + x[j-1]
-    down = down + y[i-1]
-    return traceback(i-1, j-1)
+    #   up
+    if s1 >= s2 and s1 >= s3:
+        u, d = traceback(i - 1, j, x, y, sm, bm, acids)
+        return u + '_', d + y[i-1]
 
-traceback(n, m)
-print(up[::-1])
-print(down[::-1])
-print(sm)
+    #   left
+    if s2 >= s1 and s2 >= s3:
+        u, d = traceback(i, j - 1, x, y, sm, bm, acids)
+        return u + x[j-1], d + '_'
+    
+    #  left and up
+    u, d = traceback(i-1, j-1, x, y, sm, bm, acids)
+    return u + x[j-1], d + y[i-1]
+
+
+def solve():
+    acids, bm = load_acids_blosum()
+    
+    # test case
+    x='HPEW'
+    y='PW'
+    m, n = len(x), len(y)
+    sm = compute_sm(x, y, n, m, bm, acids)
+
+    u, d = traceback(n, m, x, y, sm, bm, acids)
+    print(u)
+    print(d)    
+    #print(sm)
+
+solve()
