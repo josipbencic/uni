@@ -32,13 +32,10 @@ void zadatak2(std::string const & file_name) {
   if (!in) {
     throw std::runtime_error(std::string("No file named") + file_name);
   }
-  std::istream_iterator<int> fit(in);
-  std::istream_iterator<int> fit_end;
-  std::vector<int> v;
+  std::istream_iterator<float> fit(in);
+  std::istream_iterator<float> fit_end;
+  std::vector<float> v;
   std::copy(fit, fit_end, std::back_inserter(v));
-
-  for (auto x : v) std::cout << x;
-  std::cout << std::endl;
 
   std::ofstream out("3cols.txt");
   if (!out) {
