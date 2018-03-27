@@ -10,6 +10,7 @@
 #include <iomanip>
 #include <cmath>
 #include <cassert>
+#include <numeric>
 
 std::vector<int> zadatak1(std::string const & file_name) {
   // Implementacija zadatka 1
