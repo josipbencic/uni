@@ -1,0 +1,52 @@
+Google Test is a unit testing library for the C++ programming language, based on the xUnit architecture.
+The library is released under the BSD 3-clause license. It can be compiled for a variety of POSIX 
+and Windows platforms, allowing unit-testing of C sources as well as C++ with minimal source modification.
+The tests themselves could be run one at a time, or even be called to run all at once. 
+This makes the debugging process very specific and caters to the need of many programmers and coders alike.
+
+Small Tests (Unit Tests)
+
+Small tests are mostly (but not always) automated and exercise the code within a single function or module.
+ The focus is on typical functional issues, data corruption, error conditions, and off-by-one mistakes. 
+Small tests are of short duration, usually running in seconds or less. They are most likely written by 
+a software engineer, less often by a software engineer in test (SET), and hardly ever by a test engineer.
+ Small tests generally require sample environments to run and be tested in. Software developers rarely write
+ small tests but might run them when they are trying to diagnose a particular failure. The question a small
+ test attempts to answer is, Does this code do what it is supposed to do?
+
+Medium Tests (Integration Tests)
+
+Medium tests are usually automated and involve two or more interacting features. The focus is on testing the
+ interaction between features that call each other or interact directly.[4] Software engineers drive the 
+development of these tests early in the product cycle as individual features are completed and developers 
+are heavily involved in writing, debugging, and maintaining the actual tests. If a medium test fails or
+ breaks, the developer takes care of it autonomously. The question a medium test attempts to answer is,
+ “Does a set of near adjacent functions operate with each other the way they are supposed to?”
+
+Large Tests (Acceptance Tests)
+
+Large tests cover three or more features and represent real user scenarios with real user data sources. 
+There is some concern with overall integration of the features, but large tests tend to be more results-driven, 
+checking that the software satisfies user needs. All three roles are involved in writing large tests and 
+everything from automation to exploratory testing can be the vehicle to accomplish them. The question a 
+large test attempts to answer is, “Does the product operate the way a user would expect and produce the desired results?”
+
+Fidelity
+
+This test will fail under the condition that the code has failed during a test case or the test process itself.
+ In other words; when the code breaks, the test is failed.
+Resilience
+
+The test should not fail if a test case does not pass. The test only fails when there is a breaking change
+ that is implemented to the code being tested.
+Precision
+
+When the test fails, the exact error will be located and notified to the tester. This type of test
+ does not work well with functions that rely on string inputs.[6]
+
+Others
+
+    Basic Test 
+    Floating Point Comparisons 
+    Death Test 
+
