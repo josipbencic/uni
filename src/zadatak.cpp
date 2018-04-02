@@ -99,7 +99,24 @@ std::pair<std::list<std::string>, int> naj(std::map<std::string,int> const & wor
 // Argument word_list je std::map svih riječi s brojem njihovih pojavljivanja.
 std::vector<int>
 broj_iz_grupe(std::map<std::string,int> const & word_list,
-              std::multimap<std::string, std::string> const & grupe){
+              std::multimap<std::string, std::string> const & grupe) {
   // implementacija
+  std::vector<int> ret;
+  std::map<std::string, int> id;
+  int i = 0;
+  for (auto& elem : grupe) {
 
+    auto it_id = id.find(elem.first);
+    if (it_id == id.end()) {
+      id[elem.first] = i++;
+      ret.push_back(0);
+    }
+
+    auto it_wl = word_list.find(elem.second);
+    if (it_wl == word_list.end()) {
+      continue;
+    }
+    ret[id[elem.first]] += it_wl->second;
+  }
+  return ret;
 }
