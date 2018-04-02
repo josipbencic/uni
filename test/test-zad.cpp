@@ -105,8 +105,8 @@ TEST(STL2,broj_is_grupe){
     broj = broj_iz_grupe(word_list, grupe);
 
     ASSERT_EQ(broj.size(), 2u);
-    ASSERT_EQ(broj[0], 27);
-    ASSERT_EQ(broj[1], 17);
+    ASSERT_EQ(broj[0], 44);
+    ASSERT_EQ(broj[1], 21);
 }
 
 
