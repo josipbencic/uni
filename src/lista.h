@@ -42,7 +42,7 @@ class List{
 		// "i"+1-vi element. Pozicija "i" može biti jednaka size()  i tada se element ubacuje na kraj liste. 
 		// Metoda mora ispravno ubacivati i u praznu listu. Metoda pozicionira listu na novom
 		// i-tom elementu (pozivom metode setPosition()). 
-                // Novi element se alocira dinamički pomoću new operatora.
+  // Novi element se alocira dinamički pomoću new operatora.
 		void insert(std::size_t i, T const & t);
 		// Izbaciti element iz liste i dealocirati ga pomoću delete. Trenutna pozicija
 		// nakon izbacivanja pokazuje na prethodni element ako postoji; kada se izabacuje prvi element
@@ -52,17 +52,17 @@ class List{
 		// size()-1. Inače izbaci izuzetak std::runtime_error.
 		void setPosition(std::size_t i) const;
 		// Vrati selektirani element. Konstantan verzija.
-                T const & current() const;
+  T const & current() const;
 		// Vrati selektirani element. Nekonstantna verzija.
-                T & current();
-                // Dodaje element na kraj liste. Listu pozicionira na novom elementu.
+  T & current();
+  // Dodaje element na kraj liste. Listu pozicionira na novom elementu.
 		void push_back(T const & t);
-                // Sortira listu pomoću operatora <. Implementirati "insertion sort".
-                void sort();
+  // Sortira listu pomoću operatora <. Implementirati "insertion sort".
+  void sort();
 	private:
 	   std::size_t mSize;
 	   mutable std::size_t mPositionIdx;
-           Node<T> * mStart;
+            Node<T> * mStart;
 	   mutable Node<T> * mPosition;
 
 	   // Vrati pokazivač na selektirani node.
@@ -71,51 +71,128 @@ class List{
 
 
 template <typename T>
-bool List<T>::empty() const { 
+bool List<T>::empty() const { /// done
   // Implementacija
+  return mSize == 0;
 }
 
 template <typename T>
-std::size_t List<T>::size() const { return mSize; }
+std::size_t List<T>::size() const { return mSize; }   /// done
 
 template <typename T>
-T const & List<T>::current() const {
+T const & List<T>::current() const {  /// done
  // Implementacija
+  return mPosition->value;
 }
 
 template <typename T>
-T & List<T>::current() {
+T & List<T>::current() {  /// done
  // Implementacija
+  return mPosition->value;
 }
 
 template <typename T>
-void List<T>::setPosition(std::size_t i) const{
+void List<T>::setPosition(std::size_t i) const {    /// done
  // Implementacija
+  if (i >= mSize) {
+    throw std::runtime_error("Index out of bounds!");
+    return;
+  }
+  if (i == mPositionIdx) {
+    return;
+  }
+  while (i < mPositionIdx) {
+    mPosition = mPosition->previous;
+    mPositionIdx--;
+  }
+  while (i > mPositionIdx) {
+    mPosition = mPosition->next;
+    mPositionIdx++;
+  }
 }
 
+template <typename T>
+void List<T>::insert(std::size_t i, T const & t) {              ///  done
+   // Implementacija
+  if (i > mSize) {
+     throw std::runtime_error("Index out of bounds!");
+     return;
+  }
+  auto tmp = Node<T>;
+  tmp->value = t;
+
+  if (mSize == 0) {
+    mSize++;
+    mStart = tmp;
+    mPosition = tmp;
+    mPositionIdx = 0;
+    return;
+  }
+  if (i == size()) {
+    auto it = mStart;
+    for (; it->next != nullptr; it = it->next);
+    it->next = tmp;
+    tmp->prev = it;
+    mPositionIdx = i;
+    mPosition = tmp;
+    mSize++;
+    return;
+  }
+  setPosition(i);
+  auto prev = mPosition->previous;
+  prev->next = tmp;
+  mPosition->previous = tmp;
+  tmp->previous = prev;
+  tmp->next = mPosition;
+
+  mSize++;
+  mPositionIdx++;
+  setPosition(i);
+}
 
 template <typename T>
-void List<T>::insert(std::size_t i, T const & t){
+void List<T>::remove(std::size_t i){      /// done
  // Implementacija
+  setPosition(i);
+  auto prev = mPosition->previous;
+  if (prev != nullptr) {
+    prev->next = mPosition->next;
+  }
+  auto next = mPosition->next;
+  if (next != nullptr) {
+    next->previous = mPosition->previous;
+  }
+  delete mPosition;
+  if (prev != nullptr) {
+    mPosition = prev;
+  }
+  else {
+    mPosition = next;
+  }
 }
 
 template <typename T>
-void List<T>::remove(std::size_t i){
+void List<T>::clear(){    /// done
  // Implementacija
+  auto it = mStart;
+  for (it = mStart->next; it != nullptr; it = it->next) {
+    delete it->previous;
+  }
+  delete it;
+  mStart = nullptr;
+  mPosition = nullptr;
+  mSize = 0;
+  mPositionIdx = 0;
 }
 
 template <typename T>
-void List<T>::clear(){
+void List<T>::push_back(T const & t) {  /// done
  // Implementacija
+ insert(size(), t);
 }
 
 template <typename T>
-void List<T>::push_back(T const & t) {
- // Implementacija
-}
-
-template <typename T>
-void List<T>::sort() {
+void List<T>::sort() {        // todo
  // Implementacija
 }
 
