@@ -5,5 +5,5 @@
 dvostruko povezanu listu i ima specifično sučelje u kojem se elementi dohvaćaju kroz cjelobrojni indeks.
 Elementi liste su dinamički alocirani i vezani su međusobno pokazivačima. 
 
-Implementurati sve metode prema specifikacijama. 
+Implementirati sve metode prema specifikacijama. 
    
