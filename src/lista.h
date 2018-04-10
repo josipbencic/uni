@@ -5,6 +5,8 @@
 #include <stdexcept>
 #include <cassert>
 #include <iostream>
+#include <algorithm>
+#include <utility>
 
 template <typename> class ListTest;
 
@@ -71,54 +73,67 @@ class List{
 
 
 template <typename T>
-bool List<T>::empty() const { /// done
+bool List<T>::empty() const {
   // Implementacija
   return mSize == 0;
 }
 
 template <typename T>
-std::size_t List<T>::size() const { return mSize; }   /// done
+std::size_t List<T>::size() const { return mSize; }
 
 template <typename T>
-T const & List<T>::current() const {  /// done
+T const & List<T>::current() const {
  // Implementacija
+  assert(mPosition != nullptr);
   return mPosition->value;
 }
 
 template <typename T>
-T & List<T>::current() {  /// done
+T & List<T>::current() {
  // Implementacija
+  assert(mPosition != nullptr);
   return mPosition->value;
 }
 
 template <typename T>
-void List<T>::setPosition(std::size_t i) const {    /// done
+void List<T>::setPosition(std::size_t i) const {
  // Implementacija
   if (i >= mSize) {
     throw std::runtime_error("Index out of bounds!");
     return;
   }
   if (i == mPositionIdx) {
+    assert(mPosition != nullptr);
     return;
   }
+  if (i == 0) {
+    mPosition = mStart;
+    mPositionIdx = 0;
+    return;
+  }
+
   while (i < mPositionIdx) {
     mPosition = mPosition->previous;
     mPositionIdx--;
   }
+
   while (i > mPositionIdx) {
+    assert(mPosition != nullptr);
+    assert(mPositionIdx < mSize);
     mPosition = mPosition->next;
     mPositionIdx++;
   }
+  assert(mPosition != nullptr);
 }
 
 template <typename T>
-void List<T>::insert(std::size_t i, T const & t) {              ///  done
+void List<T>::insert(std::size_t i, T const & t) {
    // Implementacija
   if (i > mSize) {
      throw std::runtime_error("Index out of bounds!");
      return;
   }
-  auto tmp = Node<T>;
+  auto* tmp = new Node<T>{};
   tmp->value = t;
 
   if (mSize == 0) {
@@ -128,18 +143,31 @@ void List<T>::insert(std::size_t i, T const & t) {              ///  done
     mPositionIdx = 0;
     return;
   }
-  if (i == size()) {
-    auto it = mStart;
+
+  if (i == mSize) {
+    auto* it = mStart;
     for (; it->next != nullptr; it = it->next);
     it->next = tmp;
-    tmp->prev = it;
+    tmp->previous = it;
     mPositionIdx = i;
     mPosition = tmp;
     mSize++;
     return;
   }
+
   setPosition(i);
-  auto prev = mPosition->previous;
+
+  if (i == 0) {
+    tmp->next = mStart;
+    mStart->previous = tmp;
+    mStart = tmp;
+    mSize++;
+    mPosition = mStart;
+    mPositionIdx = 0;
+    return;
+  }
+
+  auto* prev = mPosition->previous;
   prev->next = tmp;
   mPosition->previous = tmp;
   tmp->previous = prev;
@@ -151,34 +179,50 @@ void List<T>::insert(std::size_t i, T const & t) {              ///  done
 }
 
 template <typename T>
-void List<T>::remove(std::size_t i){      /// done
+void List<T>::remove(std::size_t i){
  // Implementacija
   setPosition(i);
-  auto prev = mPosition->previous;
+
+  assert(mPosition != nullptr);
+
+  auto* prev = mPosition->previous;
+  auto* next = mPosition->next;
   if (prev != nullptr) {
     prev->next = mPosition->next;
   }
-  auto next = mPosition->next;
   if (next != nullptr) {
     next->previous = mPosition->previous;
   }
   delete mPosition;
-  if (prev != nullptr) {
+  mSize--;
+
+  if (empty()) {
+    mStart = nullptr;
+    mPosition = nullptr;
+    mPositionIdx = 0;
+    mSize = 0;
+  }
+  else if (prev != nullptr) {
     mPosition = prev;
+    mPositionIdx = i - 1;
   }
   else {
+    mStart = next;
     mPosition = next;
+    mPositionIdx = i;
   }
 }
 
 template <typename T>
-void List<T>::clear(){    /// done
+void List<T>::clear(){
  // Implementacija
-  auto it = mStart;
-  for (it = mStart->next; it != nullptr; it = it->next) {
-    delete it->previous;
+  if (empty()) {
+    return;
   }
-  delete it;
+  for (auto* it = mStart; it->next != nullptr; it = it->next) {
+    delete it->next;
+  }
+  delete mStart;
   mStart = nullptr;
   mPosition = nullptr;
   mSize = 0;
@@ -186,14 +230,31 @@ void List<T>::clear(){    /// done
 }
 
 template <typename T>
-void List<T>::push_back(T const & t) {  /// done
+void List<T>::push_back(T const & t) {
  // Implementacija
  insert(size(), t);
 }
 
 template <typename T>
-void List<T>::sort() {        // todo
- // Implementacija
+void List<T>::sort() {
+  if (empty()) {
+    return;
+  }
+  // Implementacija
+  for (auto* it = mStart->next; it != nullptr; it = it->next) {
+    auto* cur = it;
+    for (auto* jt = mStart; jt != it; jt = jt->next) {
+      if (!(jt->value < it->value)) {
+        cur = jt;
+        break;
+      }
+    }
+    auto tmp = it->value;
+    for (auto* jt = it; jt != cur; jt = jt->previous) {
+      jt->value = jt->previous->value;
+    }
+    cur->value = tmp;
+  }
 }
 
 #endif /* LISTA_H */
