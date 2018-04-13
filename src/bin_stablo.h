@@ -66,11 +66,14 @@ private:
     /** Implementacija za remove nekog cvora koji je negdje u stablu */
     ErrorCode remove_impl(Node<T> *& node, T const& t);
 
+    void remove_node(Node<T>*& node);
 
     /** If it finds the elemente, returns it in node reference. */
-    bool find(Node<T>*& node, T const& t,Node<T>*& result);
+    bool find(Node<T>*& node, T const& t, Node<T>*& result);
 
     int count(Node<T>* node);
+
+    void clear_impl(Node<T>*& node);
 
     /** Rekurzivni preorder obilazak. */
     template <typename Funct>

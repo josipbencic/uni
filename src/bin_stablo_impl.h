@@ -1,6 +1,8 @@
 #ifndef BIN_STABLO_IMPL_H_INCLUDED
 #define BIN_STABLO_IMPL_H_INCLUDED
 
+#include <algorithm>
+
 ///// Implementacija metoda iz Node klase //////////////////////
 
 template <typename T>
@@ -88,7 +90,24 @@ ErrorCode BinarySTree<T>::insert(Node<T>*& root, T const& t) {
 
 template <typename T>
 void BinarySTree<T>::clear() {
-  /// TODO ================================================
+  clear_impl(root);
+}
+
+template <typename T>
+void BinarySTree<T>::clear_impl(Node<T>*& node) {
+  if (node == nullptr) {
+    return;
+  }
+  if (node->left == nullptr && node->right == nullptr) {
+    delete node;
+    node = nullptr;
+    return;
+  }
+  clear_impl(node->left);
+  clear_impl(node->right);
+
+  delete node;
+  node = nullptr;
 }
 
 template <typename T>
@@ -98,22 +117,75 @@ ErrorCode BinarySTree<T>::remove(T const& t) {
 
 template <typename T>
 ErrorCode BinarySTree<T>::remove_impl(Node<T>*& node, T const& t) {
-  /// TODO ================================================
+  if (node == nullptr) {
+    return notfound;
+  }
   auto same = [](T const& a, T const& b) {
     return !(a < b || b < a);
   };
-  if (same(node->left->data, t))  {}
+  if (node->left && same(node->left->data, t))  {
+    remove_node(node->left);
+    return success;
+  }
+  if (node->right && same(node->right->data, t)) {
+    remove_node(node->right);
+    return success;
+  }
+  auto l = remove_impl(node->left, t);
+  if (l == success) {
+    return l;
+  }
+  auto r = remove_impl(node->right, t);
+  if (r == success) {
+    return r;
+  }
+  return notfound;
+}
 
-  // ZA dodatne bodove, TODO!
-  return success;
+template <typename T>
+void BinarySTree<T>::remove_node(Node<T>*& node) {
+  if (node->left == nullptr && node->right == nullptr) {
+    delete node;
+    node = nullptr;
+    return;
+  }
+  if (node->left == nullptr) {
+    auto* r = node->right;
+    delete node;
+    node = r;
+    return;
+  }
+  if (node->right == nullptr) {
+    auto* l = node->left;
+    delete node;
+    node = l;
+    return;
+  }
+
+  /// TODO: last case: middle of the tree
+
+  // 1) find the prev element smaller than this one
+  auto* elem = node->left;
+  if (elem->right == nullptr) {
+    std::swap(node->data, node->left->data);
+    remove_node(node->left);
+    return;
+  }
+
+  while (elem->right->right != nullptr) {
+    elem = elem->right;
+  }
+  std::swap(elem->right->data, node->data);
+  remove_node(elem->right);
+  return;
 }
 
 template <typename T>
 ErrorCode BinarySTree<T>::remove(Node<T>*& root) {
-  /// TODO ================================================
   if (root == nullptr) {
     return notfound;
   }
+  assert(root->left == nullptr && root->right == nullptr);
   delete root;
   root = nullptr;
   return success;
