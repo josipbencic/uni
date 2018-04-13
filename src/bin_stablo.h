@@ -1,7 +1,7 @@
 #ifndef BIN_STABLO_H_INCLUDED
 #define BIN_STABLO_H_INCLUDED
 
-enum ErrorCode { success, duplicate, notfound};
+enum ErrorCode { success, duplicate, notfound };
 
 template <typename T>
 struct Node
@@ -58,9 +58,19 @@ private:
      * odnosno duplicate kada je element već u stablu.
      */
     ErrorCode insert(Node<T> * & root, T const & t);
+
     /** Ukloni element na koji pokazuje root i vrati success. Ako je
      * root = nullptr ne radi ništa i vrati notfound. */
     ErrorCode remove(Node<T> * & root);
+
+    /** Implementacija za remove nekog cvora koji je negdje u stablu */
+    ErrorCode remove_impl(Node<T> *& node, T const& t);
+
+
+    /** If it finds the elemente, returns it in node reference. */
+    bool find(Node<T>*& node, T const& t,Node<T>*& result);
+
+    int count(Node<T>* node);
 
     /** Rekurzivni preorder obilazak. */
     template <typename Funct>

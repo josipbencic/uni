@@ -6,6 +6,5 @@
 int main()
 {
     // Vlastiti testovi
-    throw "Not implemented.";
     return 0;
 }
