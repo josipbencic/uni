@@ -36,18 +36,18 @@ koja se može koristiti u destruktoru, operatorima pridruživanja i `reallocate(
 
 Sučelje klase (**Vect.h**) i određeni implementacijski detalji su dani ovdje. Klasa mora imati:
 
-** Konstruktor koji uzima dimenziju vektora i inicijalizacijsku vrijednost. Oba argumenta moraju imati 
+* Konstruktor koji uzima dimenziju vektora i inicijalizacijsku vrijednost. Oba argumenta moraju imati 
    defaultne parametre.
-** Konstruktor bez parametara konstruira prazan vektor.
-** Konstruktor kopije kopiranjem i premještanjem.
-** Operator pridruživanja kopiranjem i premještanjem.
-** Destruktor.
-** Operatore dohvata ([]), konstantan i nekonstantan.
-** `push_back` metodu.
-** Metode `size()` i `capacity()` (kao `std::vector`)
-** Operatore `+=` i `-=`.
-** Operator `*=` koji množi sve komponente vektora sa danom konstantom.
-** Metodu `two_norm()` koja računa euklidsku normu vektora. Metoda na praznom vektoru mora vratiti 0.
+* Konstruktor bez parametara konstruira prazan vektor.
+* Konstruktor kopije kopiranjem i premještanjem.
+* Operator pridruživanja kopiranjem i premještanjem.
+* Destruktor.
+* Operatore dohvata ([]), konstantan i nekonstantan.
+* `push_back` metodu.
+* Metode `size()` i `capacity()` (kao `std::vector`)
+* Operatore `+=` i `-=`.
+* Operator `*=` koji množi sve komponente vektora sa danom konstantom.
+* Metodu `two_norm()` koja računa euklidsku normu vektora. Metoda na praznom vektoru mora vratiti 0.
 
 Izvan klase moraju biti definirani operatori zbrajanja i oduzimanja vektora. 
 Konačno treba konstruirati operator ispisa na izlazni stream koji ispisuje vektor u 

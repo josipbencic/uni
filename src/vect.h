@@ -33,6 +33,9 @@ private:
         T *mfirst_free; // pokazivač na prvo slobodno mjesto
         T *mend;        // pokazivač na kraj alociranog prostora
                              // (jedno mjesto iza posljednjeg)
+  
+        // Oslobodi zauzeti prostor (pomoću alokatora)
+        void free();
 
         // dodati vlastite privatne metode.
 	
