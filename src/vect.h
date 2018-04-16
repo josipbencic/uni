@@ -49,7 +49,6 @@ private:
 };
 
 // Deklaracija operator +, - i << 
-template <typename T>
 
 // Implementacija je u posebnoj .h datoteci
 #include "vect_impl.h"
