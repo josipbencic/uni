@@ -37,6 +37,10 @@ private:
         // Oslobodi zauzeti prostor (pomoću alokatora)
         void free();
 
+      	// realociraj na novu lokaciju. Povećaj dimenziju vektora 2 puta; ako je 
+        // vektor prazan alociraj jedan element. 
+        void reallocate();
+
         // dodati vlastite privatne metode.
 	
         // alokator ne mora imati pristup varijablama članicama klase pa ga činimo 

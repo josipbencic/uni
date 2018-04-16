@@ -70,15 +70,15 @@ memorije od konstrukcije objekta u memoriji  te, isto tako fazu destrukcije obje
 memorije.
 
 To je posebno važno kod klasa kao što je `std::vector<T>` koje alociraju više memorije no što 
-drže elemenata. Bez alokatora sva bi memorija morala biti konstruirana (s defaultnim konstruktorom).
+drže elemenata. Bez alokatora sva bi memorija morala biti konstruirana (defaultnim konstruktorom).
 
 | **Poziv**              |  **Značenje** |
 | -----------------------|  ------------ |
 | `allocator<T> a`       |  Definira alokator `a` koji alocira memoriju za tip `T.`  |
 | `a.allocate(n)`        | Alocira neinicijaliziranu memoriju za `n` objekata tip `T`. Vraća pokazivač na alociranu memoriju. |
-| `a.deallocate(p,n)`    | Dealocira memoriju koja sadrži mjesto za `n` objekata tip `T` i na koju pokazuje pokazivač `p`.  Pokazivač `p` mora biti dobiven od `allocate` i `n` mora biti korišten u pozivu metode `allocate`. Objekti koji su eventualno konstruirani u toj memoriji moraju biti uništeni metodom `destroy()` prije poziva `deallocate`.|
+| `a.deallocate(p,n)`    | Dealocira memoriju koja sadrži `n` objekata tip `T` na koju pokazuje pokazivač `p`.  Pokazivač `p` mora biti dobiven od `allocate`, a `n` mora biti korišten u pozivu metode `allocate`. Objekti koji su eventualno konstruirani u toj memoriji moraju biti uništeni metodom `destroy()` prije poziva `deallocate`.|
 | `a.construct(p, args)` | `p` mora biti pokazivač tipa `T` na neinicijaliziranu memoriju; `args` su argumenti za konstruktor tipa `T` koji se koriste da bi se na mjestu na koje pokazuje `p` konstruirao objekt tipa `T`. |
-| `a.destroy(p)`         | `p` mora biti pokazivač tipa `T`. Pozovi destruktor na objektu na koji pokazuje `p`.  Objekt mora prije toga biti konstruiran na tom mjestu. |
+| `a.destroy(p)`         | `p` mora biti pokazivač tipa `T`. Poziva destruktor na objektu na koji pokazuje `p`.  Objekt mora prije toga biti konstruiran na tom mjestu. |
 
 
 
