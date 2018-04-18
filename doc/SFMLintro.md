@@ -196,7 +196,7 @@ void Game::render(){
 }
 ```
 
-Kod je sada malo obimniji, ali je s druge strane i jednostavniji.
+Kod je sada malo obimniji, ali je s druge strane  jednostavniji.
 
 
 
@@ -237,8 +237,8 @@ zapisujemo što treba učiniti. Samo pomicanje se dešava u `update()` metodi.
 Naša klasa time dobiva četiri nove varijable i jednu pomoćnu metodu:
 
 ```cxx
-#ifndef GAME-V3_H_INCLUDED
-#define GAME-V3_H_INCLUDED
+#ifndef GAME_H_INCLUDED
+#define GAME_H_INCLUDED
 
 #include <SFML/Graphics.hpp>
 
@@ -262,7 +262,7 @@ private:
     bool mIsMovingUp, mIsMovingDown, mIsMovingLeft, mIsMovingRight;
     void handlePlayerInput(sf::Keyboard::Key code, bool isPressed);
 };
-#endif // GAME-V3_H_INCLUDED
+#endif // GAME_H_INCLUDED
 ```
 
 
@@ -335,7 +335,8 @@ void Game::update(){
 
 Samo pomicanje obavlja `move` funkcija klase `Sprite`. Funkcije `render` i `draw` ostaju iste
 i time smo dobili drugi verziju našeg programa. Program je dan u datotekama
-[game-v3.h](game-v3.h), [game-v3.cpp](game-v3.cpp) i [game-v3-main.cpp](game-v3-main.cpp).
+[game.h](../src/version3/game.h), [game.cpp](../src/version3/game.cpp) 
+i [game-main.cpp](../src/version3/game-main.cpp) u direktoriju `src/version3`.
  
 
 ### Brzina pomicanja objekta
@@ -392,7 +393,8 @@ void Game::update(sf::Time const & dt){
 
 Brzina `mSpeed` je skalar koji treba postaviti, na primjer u konstruktoru. 
 Nova verzila programa je u datotekama
-[game-v4.h](game-v4.h), [game-v4.cpp](game-v4.cpp) i [game-v4-main.cpp](game-v4-main.cpp).
+[game.h](../src/version4/game.h), [game.cpp](../src/version4/game.cpp) 
+i [game-main.cpp](../src/version4/game-main.cpp)) u direktoriju `src/version4`.
 
  
 
