@@ -5,32 +5,31 @@
 Ovdje ćemo ukratko opisati SFML biblioteku (framework) koja je namijenjena uglavnom za razvoj 
 2D računalnih igara. Biblioteka je podijeljena u 5 modula: *System*, *Window*, *Graphics*,
 *Audio* i *Network*.  Web stranica biblioteke je 
-link:http://www.sfml-dev.org/[www.sfml-dev.org].
+[www.sfml-dev.org](http://www.sfml-dev.org/).
 
 
 
 Za instalaciju na raznim platformama i kompilaciju vidjeti tutorijal na web stranici 
-link:http://www.sfml-dev.org/tutorials/2.4/[www.sfml-dev.org/tutorials/2.4/].
+[www.sfml-dev.org/tutorials/2.4/](http://www.sfml-dev.org/tutorials/2.4/).
 
 
 
   
-Svi grafički programi implementiraju *program vođen događajima* (<I>event driven program</I>).
+Svi grafički programi implementiraju *program vođen događajima* (*event driven program*).
 Cijeli se program sastoji od jedne petlje u kojoj se događaji osluškuju te se na neke od njih reagira. 
 Same događaje generira operacijski sustav (micanje miša, pritiskanje tipke na tastaturi 
 i slično) no oni dolaze do programa posredovani grafičkom bibliotekom koja ih prilagođava korištenju 
 unutar programa. 
   
 
-===   Prvi primjer
+##  Prvi primjer
 
   
   
 Ovdje je dan najjednostavniji primjer SFML programa koji ujedno predstavlja strukturu programa 
 vođenog događajima:
   
-[source, {cxx}]
-----
+```cxx
 int main()
 {
     // Create the main window
@@ -62,7 +61,7 @@ int main()
         
     return 0;
 }
-----
+```
 
 
 
