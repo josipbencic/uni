@@ -67,42 +67,43 @@ int main()
 
 *Objašnjnje*:
 
--       Sve SFML klase nalaze se u imeniku `*sf*`. 
--       link:http://www.sfml-dev.org/documentation/2.4.2/classsf_1_1RenderWindow.php[sf::RenderWindow]
-        je klasa koja predstavlja prozor u koji s lakoćom možemo iscrtavati
-        grafičke elemente. Program započinje instanciranjem prozora čiji konstruktor uzima 
-        link:http://www.sfml-dev.org/documentation/2.4.2/classsf_1_1VideoMode.php[sf::VideoMode]
-        s danom rezolucijom i naslov ekrana. 
--       link:http://www.sfml-dev.org/documentation/2.4.2/classsf_1_1Texture.php[sf::Texture]
-        predstavlja sliku i može se učitati iz datoteke sa diska u različitim formatima pomoću funkcije 
-        `loadFromFile()`.         Kada `Texture` želimo ispisati na ekranu trebamo s njim inicijalizirati 
-        link:http://www.sfml-dev.org/documentation/2.4.2/classsf_1_1Sprite.php[sf::Sprite]
-	koji predstavlja sliku unutar pravokutnika. `sf::Sprite` ne kopira sliku već samo
-        drži referencu na `sf::Texture`.
--       Cijeli program se nalazi unutar jedne `while` petlje (glavne petlje igre) u kojoj se ispituje 
-        da li je prozor još otvoren. Program završava ako je prozor zatvoren. 
--       Unutar glavne petlje rade se dvije stvari: procesiranje događaja i iscrtavanje ekrana. 
-**         Događaje procesiramo unutar jedne `while` petlje jer u redu događaja može stajati 
-           više njih koji čekaju da obradu. U ovom programu mi reagiramo na zatvaranje prozora i 
-           u tom slučaju zatvaramo prozor (`window.close();`) što zaustavlja program. Ostali događaji 
-           se ignoriraju. 
-**         Iscrtavanje ekrana se sastoji od čišćenja prošlog sadržaja (`window.clear();`),
-           iscrtavanja svih elemenata (ovdje samo jedan sprite) i poziva funkciji `display()` koja
--      Događaji su reprezentirani klasom 
-       link:http://www.sfml-dev.org/documentation/2.4.2/classsf_1_1Event.php[sf::Event]. 
-       Događaje prepoznajemo prema njihovom tipu.
+*  Sve SFML klase nalaze se u imeniku `sf`. 
+* [sf::RenderWindow](http://www.sfml-dev.org/documentation/2.4.2/classsf_1_1RenderWindow.php)
+  je klasa koja predstavlja prozor u koji s lakoćom možemo iscrtavati
+  grafičke elemente. Program započinje instanciranjem prozora čiji konstruktor uzima 
+  [sf::VideoMode](http://www.sfml-dev.org/documentation/2.4.2/classsf_1_1VideoMode.php)
+  s danom rezolucijom i naslov ekrana. 
+* [sf::Texture](http://www.sfml-dev.org/documentation/2.4.2/classsf_1_1Texture.php)
+  predstavlja sliku i može se učitati iz datoteke sa diska u različitim formatima pomoću funkcije 
+  `loadFromFile()`.  Kada `Texture` želimo ispisati na ekranu trebamo s njim inicijalizirati 
+  [sf::Sprite](http://www.sfml-dev.org/documentation/2.4.2/classsf_1_1Sprite.php)
+  koji predstavlja sliku unutar pravokutnika. `sf::Sprite` ne kopira sliku već samo
+  drži referencu na `sf::Texture`.
+* Cijeli program se nalazi unutar jedne `while` petlje (glavne petlje igre) u kojoj se ispituje 
+  da li je prozor još otvoren. Program završava ako je prozor zatvoren. 
+* Unutar glavne petlje rade se dvije stvari: procesiranje događaja i iscrtavanje ekrana. 
+** Događaje procesiramo unutar jedne `while` petlje jer u redu događaja može stajati 
+   više njih koji čekaju da obradu. U ovom programu mi reagiramo na zatvaranje prozora i 
+   u tom slučaju zatvaramo prozor (`window.close();`) što zaustavlja program. Ostali događaji 
+   se ignoriraju. 
+** Iscrtavanje ekrana se sastoji od čišćenja prošlog sadržaja (`window.clear();`),
+   iscrtavanja svih elemenata (ovdje samo jedan sprite) i poziva funkciji `display()` koja
+* Događaji su reprezentirani klasom 
+  [sf::Event](http://www.sfml-dev.org/documentation/2.4.2/classsf_1_1Event.php). 
+  Događaje prepoznajemo prema njihovom tipu.
 
-Cijeli primjer se može naći u datoteci link:./main.cpp[main.cpp].
-
-
-=== Game klasa
+Cijeli primjer se može naći u datoteci [main.cpp](main.cpp).
 
 
-Naš prvi primjer ćemo transformirati u jednu klasu. Klasa je prikazana ovdje (datoteka link:./game-v1.h">game-v1.h</A>):
+## Game klasa
 
 
-[source, {cxx}]
-----
+Naš prvi primjer ćemo transformirati u jednu klasu. 
+Klasa je prikazana ovdje (datoteka [game-v1.h](./game-v1.h)):
+
+
+
+```cxx
 #ifndef GAME_V1_H_INCLUDED
 #define GAME_V1_H_INCLUDED
 
@@ -128,13 +129,13 @@ private:
 };
 
 #endif // GAME-V1_H_INCLUDED
-----
+```
 
 
-Glavni program ima jednostavnu formu  (datoteka link:./game-v1-main.cpp[game-v1-main.cpp]):
+Glavni program ima jednostavnu formu  (datoteka [game-v0-main.cpp](./game-v1-main.cpp)):
 
-[source, {cxx}]
-----
+
+```cxx
 #include "game-v1.h"
 
 int main()
@@ -144,17 +145,16 @@ int main()
 
     return 0;
 }
-----
+```
 
 
 Implementacija metoda klase je posve izravna s time da smo dodali metodu `update() `koja
 bi trebala mijenjati sadržaj prozora koji se iscrtava, no za sada je prazna. Kod je u 
-link:./game-v1.cpp[game-v1.cpp]:
+[game-v1.cpp](./game-v1.cpp):
 
 
 
-[source, {cxx}]
-----
+```cxx
 #include "game-v1.h"
 
 Game::Game() : mWindow(sf::VideoMode(800,600), "Game-v1"){
@@ -193,28 +193,30 @@ void Game::render(){
     mWindow.draw(mSprite);
     mWindow.display();
 }
-----
+```
+
 Kod je sada malo obimniji, ali je s druge strane i jednostavniji.
 
 
 
-=== Pomicanje sprite-a pomoću tipkovnice
+##  Pomicanje sprite-a pomoću tipkovnice
 
 
 U sljedećem koraku želimo pomicati sliku na ekranu pomoću tipkovnice. U 
 tu svrhu trebamo obraditi događaje koji dolaze od tipkovnice. To znači da moramo mijenjati 
-metodu ` Game::processEvents()`.
+metodu `Game::processEvents()`.
 
 
 
-Klasa link:http://www.sfml-dev.org/documentation/2.4.2/classsf_1_1Event.php[Event]
+Klasa [Event](http://www.sfml-dev.org/documentation/2.4.2/classsf_1_1Event.php)
 popisuje sve tipove događaja u jednoj enumeraciji. Događaju vezani uz tastaturu su
 `Event::KeyPressed` i `Event::KeyReleased`.  Objekt klase `Event` ima atribut
 `type` na osnovu kojeg dobivamo tip događaja. Ako je događaj jedan od dva događaja s tipkovnicom 
-onda možemo očitati kod pritisnute/otpuštene tipke pomoću atributa `key`. Taj atribut ima pak atribut `code` 
+onda možemo očitati kod pritisnute/otpuštene tipke pomoću atributa `key`. 
+Taj atribut ima pak atribut `code` 
 koji identificira tipku.  Sam code je enumeracija tipa `sf::Keyboard::Key`.  Za sve detalje 
-vidi dokumentaciju klase 
-link:http://www.sfml-dev.org/documentation/2.4.2/classsf_1_1Event.php[Event].
+vidi dokumentaciju klase
+[Event](http://www.sfml-dev.org/documentation/2.4.2/classsf_1_1Event.php).
 
 
 
@@ -233,8 +235,7 @@ zapisujemo što treba učiniti. Samo pomicanje se dešava u `update()` metodi.
 
 Naša klasa time dobiva četiri nove varijable i jednu pomoćnu metodu:
 
-[source, {cxx}]
-----
+```cxx
 #ifndef GAME-V3_H_INCLUDED
 #define GAME-V3_H_INCLUDED
 
@@ -261,7 +262,7 @@ private:
     void handlePlayerInput(sf::Keyboard::Key code, bool isPressed);
 };
 #endif // GAME-V3_H_INCLUDED
-----
+```
 
 
 
@@ -273,8 +274,7 @@ možemo prenijeti kod pritisnute tipke (`event.key.code`). Druga varijabla funkc
 
 
 
-[source, {cxx}]
-----
+```cxx
 // obrada događaja
 void Game::processEvents(){
       sf::Event event;
@@ -293,33 +293,29 @@ void Game::processEvents(){
 
       }
 }
-----
-
+```
 
 Metoda `Game::handlePlayerInput()` ima ovu implementaciju. Ona ne vrši nikakvo pomicanje već samo 
 prenosi informaciju na varijable članice klase. 
 
 
-[source, {cxx}]
-----
+```cxx
 void Game::handlePlayerInput(sf::Keyboard::Key code, bool isPressed){
     if( code == sf::Keyboard::Up)    mIsMovingUp    = isPressed;
     if( code == sf::Keyboard::Down)  mIsMovingDown  = isPressed;
     if( code == sf::Keyboard::Left)  mIsMovingLeft  = isPressed;
     if( code == sf::Keyboard::Right) mIsMovingRight = isPressed;
 }
-----
-
+```
 
 Metoda `Game::update()`  vrši sam pomak objekta. Za to koristimo 
-link:http://www.sfml-dev.org/documentation/2.4.2/classsf_1_1Vector2.php[sf::Vector2f]
+[sf::Vector2f](http://www.sfml-dev.org/documentation/2.4.2/classsf_1_1Vector2.php)
 koji predstavlja 2D vektor s `float` koordinatama `x` i `y`. 
 Pomak vršimo za jedan pixel u selektiranim smjerovima. To znači da će pri svakom iscrtavanju
 ekrana dok je tipka pritisnuta figura biti pomaknuta za jedan pixel. 
 
 
-[source, {cxx}]
-----
+```cxx
 // Pomicanje figure
 void Game::update(){
     sf::Vector2f movement(0.f, 0.f);  // pomak
@@ -334,15 +330,14 @@ void Game::update(){
 
     mSprite.move(movement);
 }
-----
-
+```
 
 Samo pomicanje obavlja `move` funkcija klase `Sprite`. Funkcije `render` i `draw` ostaju iste
 i time smo dobili drugi verziju našeg programa. Program je dan u datotekama
-link:game-v3.h[game-v3.h], link:game-v3.cpp[game-v3.cpp] i link:game-v3-main.cpp[game-v3-main.cpp].
+[game-v3.h](game-v3.h), [game-v3.cpp](game-v3.cpp) i [game-v3-main.cpp](game-v3-main.cpp).
  
 
-=== Brzina pomicanja objekta
+### Brzina pomicanja objekta
 
 
 U prethodnom primjeru smo pomicali sliku za jedan pixel u danom smjeru pri svakom iscrtavanju 
@@ -354,12 +349,12 @@ kako bismo dobili traženu udaljenost.
 
 
 Za rad s vremenom nam pomažu dvije klase: 
-link:http://www.sfml-dev.org/documentation/2.4.2/classsf_1_1Clock.php[sf::Clock] i
-link:http://www.sfml-dev.org/documentation/2.4.2/classsf_1_1Time.php[sf::Time]. Da bismo radili s vremenom 
+[sf::Clock](http://www.sfml-dev.org/documentation/2.4.2/classsf_1_1Clock.php) i
+[sf::Time](http://www.sfml-dev.org/documentation/2.4.2/classsf_1_1Time.php). 
+Da bismo radili s vremenom 
 trebamo promijeniti dvije rutine. Prvo mijenjamo rutina `run` koja postaje:
 
-[source, {cxx}]
-----
+```cxx
 // game-loop je sada u metodi run()
 void Game::run(){
     sf::Clock clock; // defaultni konstruktor starta sat
@@ -372,14 +367,12 @@ void Game::run(){
        render();
     }
 }
-----
-
+```
 
 Ovdje smo praktički rutini `update` predali vremenski interval protekao između dva iscrtavanja. 
 Rutina `update` se mijenja na sljedeći način:
 
-[source, {cxx}]
-----
+```cxx
 // Pomicanje figure
 void Game::update(sf::Time const & dt){
     sf::Vector2f movement(0.f, 0.f);  // brzina
@@ -394,15 +387,15 @@ void Game::update(sf::Time const & dt){
 
     mSprite.move(movement * dt.asSeconds());
 }
-----
+```
 
-
-Brzina `mSpeed` je skalar koji treba postaviti, na primjer u konstruktoru. Nova verzila programa je u datotekama
-link:game-v4.h[game-v4.h], link:game-v4.cpp[game-v4.cpp] i link:game-v4-main.cpp[game-v4-main.cpp].
+Brzina `mSpeed` je skalar koji treba postaviti, na primjer u konstruktoru. 
+Nova verzila programa je u datotekama
+[game-v4.h](game-v4.h), [game-v4.cpp](game-v4.cpp) i [game-v4-main.cpp](game-v4-main.cpp).
 
  
 
-=== Fiksiranje vremenskog koraka
+### Fiksiranje vremenskog koraka
 
 
 Koliki će biti `dt` u prethodnom programu ovisi o brzini iscrtavanja ekrana. Ukoliko 
@@ -410,19 +403,21 @@ tokom odvijanja programa imamo bitno različit broj objekata koje iscrtavamo odg
 može bitno varirati. Te su varijacije nepoželjne kada je u pitanju  izračunavanje novog stanja 
 sustava iz više razloga. Suviše veliki vremenski koraci mogu dovesti do nestablnosti ukoliko riješavamo 
 problem gibanja eksplicitnom numeričkom metodom; kod kolizija predmeti mogu _ulaziti_ jedan u drugog.
-Varijabilan vremenski korak vodi i na različito akumuliranje grešaka zaokruživanja što dovodi do nedeterminističnog 
-ponašanja simulacije -- igrači na računalima različite brzine (koji eventualno igraju istu igru preko mreže)
+Varijabilan vremenski korak vodi i na različito akumuliranje grešaka zaokruživanja 
+što dovodi do nedeterminističnog 
+ponašanja simulacije -- igrači na računalima različite brzine 
+(koji eventualno igraju istu igru preko mreže)
 ne vide sasvim iste rezultate simulacije.  
 Stoga je nužno da `update()` dobiva (približno)
 konstantan `dt`.  Tehnika kojom se to može postići prikazana je niže.  U klasu `Game` 
 smo uveli novu varijablu `mTimePerFrame` koju inicijaliziramo s 1/60 (60 slika u sekundi). 
-Ako je `dt` veći od te vrijednosti vršimo procesiranje događaja i aktualizaciju scene više puta prije iscrtavanja. 
+Ako je `dt` veći od te vrijednosti vršimo procesiranje događaja i aktualizaciju scene
+ više puta prije iscrtavanja. 
 Metoda `update()`
 se poziva uvijek s `dt=mTimePerFrame`. 
 
 
-[source, {cxx}]
-----
+```cxx
 // game-loop je sada u metodi run()
 // Fiksiramo vremenski korak
 void Game::run(){
@@ -445,10 +440,10 @@ void Game::run(){
        render();
     }
 }
-----
+```
 
-
-Ukoliko je iscrtavanje suviše brzo može se desiti da se metoda `update()` preskoči dok se ne akumulira dovoljno proteklog 
+Ukoliko je iscrtavanje suviše brzo može se desiti da se metoda `update()`
+ preskoči dok se ne akumulira dovoljno proteklog 
 vremena.  Ako je iscrtavanje suviše sporo `update()` će se izvršiti više puta prije iscrtavanja. Primijetimo
 pri tome da vrijeme  `mTimePerFrame` ne smije biti manje od vremena izvršavanja `update()` rutine 
 jer će unutarnja petlja stalno povećavati broj iteracija, što će usporavati simulaciju. Loša strana ove tehnike je 
@@ -458,7 +453,7 @@ vizualno eliminira ekstrapolacijom scene prije iscrtavanja.
 
 
 
-*Zadatak*.  Zadana je slika link:SunRed.png[zvijezde] i link:planet1.png[planeta].
+**Zadatak**.  Zadana je slika [zvijezde](SunRed.png) i [planeta](planet1.png).
 Treba napraviti simulaciju u kojoj
 planet rotira ok zvijezde brzinom od jednog okreta u minuti te rotira oko sebe brzinom 
 od jednog okreta u 5 sekundi. 
