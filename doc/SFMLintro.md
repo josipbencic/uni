@@ -404,8 +404,8 @@ i [game-main.cpp](../src/version4/game-main.cpp)) u direktoriju `src/version4`.
 Koliki će biti `dt` u prethodnom programu ovisi o brzini iscrtavanja ekrana. Ukoliko 
 tokom odvijanja programa imamo bitno različit broj objekata koje iscrtavamo odgovarajući `dt` 
 može bitno varirati. Te su varijacije nepoželjne kada je u pitanju  izračunavanje novog stanja 
-sustava iz više razloga. Suviše veliki vremenski koraci mogu dovesti do nestablnosti ukoliko riješavamo 
-problem gibanja eksplicitnom numeričkom metodom; kod kolizija predmeti mogu _ulaziti_ jedan u drugog.
+sustava iz više razloga. Suviše veliki vremenski koraci mogu dovesti do nestabilnosti ukoliko riješavamo 
+problem gibanja eksplicitnom numeričkom metodom; kod kolizija predmeti mogu _ulaziti_ jedan u drugi.
 Varijabilan vremenski korak vodi i na različito akumuliranje grešaka zaokruživanja 
 što dovodi do nedeterminističnog 
 ponašanja simulacije -- igrači na računalima različite brzine 
@@ -421,7 +421,6 @@ se poziva uvijek s `dt=mTimePerFrame`.
 
 
 ```cxx
-// game-loop je sada u metodi run()
 // Fiksiramo vremenski korak
 void Game::run(){
     sf::Clock clock; // defaultni konstruktor starta sat
