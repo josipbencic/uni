@@ -87,7 +87,8 @@ int main()
    u tom slučaju zatvaramo prozor (`window.close();`) što zaustavlja program. Ostali događaji 
    se ignoriraju. 
   * Iscrtavanje ekrana se sastoji od čišćenja prošlog sadržaja (`window.clear();`),
-   iscrtavanja svih elemenata (ovdje samo jedan sprite) i poziva funkciji `display()` koja
+    iscrtavanja svih elemenata (ovdje samo jedan sprite) i poziva funkciji `display()` koja
+    vrši iscrtavanje.
 * Događaji su reprezentirani klasom 
   [sf::Event](http://www.sfml-dev.org/documentation/2.4.2/classsf_1_1Event.php). 
   Događaje prepoznajemo prema njihovom tipu.
@@ -99,7 +100,7 @@ Cijeli primjer se može naći u datoteci [main.cpp](main.cpp).
 
 
 Naš prvi primjer ćemo transformirati u jednu klasu. 
-Klasa je prikazana ovdje (datoteka [game-v1.h](./game-v1.h)):
+Klasa je prikazana ovdje (datoteka [game-v1.h](../src/version2/game-v1.h)):
 
 
 
