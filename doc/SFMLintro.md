@@ -82,11 +82,11 @@ int main()
 * Cijeli program se nalazi unutar jedne `while` petlje (glavne petlje igre) u kojoj se ispituje 
   da li je prozor još otvoren. Program završava ako je prozor zatvoren. 
 * Unutar glavne petlje rade se dvije stvari: procesiranje događaja i iscrtavanje ekrana. 
-** Događaje procesiramo unutar jedne `while` petlje jer u redu događaja može stajati 
+  * Događaje procesiramo unutar jedne `while` petlje jer u redu događaja može stajati 
    više njih koji čekaju da obradu. U ovom programu mi reagiramo na zatvaranje prozora i 
    u tom slučaju zatvaramo prozor (`window.close();`) što zaustavlja program. Ostali događaji 
    se ignoriraju. 
-** Iscrtavanje ekrana se sastoji od čišćenja prošlog sadržaja (`window.clear();`),
+  * Iscrtavanje ekrana se sastoji od čišćenja prošlog sadržaja (`window.clear();`),
    iscrtavanja svih elemenata (ovdje samo jedan sprite) i poziva funkciji `display()` koja
 * Događaji su reprezentirani klasom 
   [sf::Event](http://www.sfml-dev.org/documentation/2.4.2/classsf_1_1Event.php). 
