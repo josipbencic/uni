@@ -100,7 +100,7 @@ Cijeli primjer se može naći u datoteci [main.cpp](main.cpp).
 
 
 Naš prvi primjer ćemo transformirati u jednu klasu. 
-Klasa je prikazana ovdje (datoteka [game-v1.h](../src/version2/game-v1.h)):
+Klasa je prikazana ovdje (datoteka [game.h](../src/version2/game.h) u direktoriju `src/version2`):
 
 
 
@@ -133,7 +133,7 @@ private:
 ```
 
 
-Glavni program ima jednostavnu formu  (datoteka [game-v0-main.cpp](./game-v1-main.cpp)):
+Glavni program ima jednostavnu formu  (datoteka [game-main.cpp](./game-main.cpp) u direktoriju `src/version2`):
 
 
 ```cxx
@@ -151,12 +151,12 @@ int main()
 
 Implementacija metoda klase je posve izravna s time da smo dodali metodu `update() `koja
 bi trebala mijenjati sadržaj prozora koji se iscrtava, no za sada je prazna. Kod je u 
-[game-v1.cpp](./game-v1.cpp):
+[game.cpp](./game.cpp) u direktoriju `src/version2`:
 
 
 
 ```cxx
-#include "game-v1.h"
+#include "game.h"
 
 Game::Game() : mWindow(sf::VideoMode(800,600), "Game-v1"){
    if (!mTexture.loadFromFile("cb.bmp"))
