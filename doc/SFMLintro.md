@@ -471,7 +471,7 @@ Nemojte koristiti cijeli `sprite` već samo jedan dio (koristeći `setTextureRec
 
 **Zadatak 2**. Imamo tri objekta: Sunce, Zemlju i avion. Sunce stoji u sredini ekrana.
 Zemlja rotira oko sunca u negativnom smjeru brzinom od jednog okretaja u minuti i rotira
-oko sebe u negativnom smjeru brzinom od jednog okretaja u 5 sekundi. Konačno, avion rotiratioko Zemlje,
-u istom smjeru kao i Zemlja, brtinom od jednog okretaja u dvije sekunde.
+oko sebe u negativnom smjeru brzinom od jednog okretaja u 5 sekundi. Konačno, avion rotira oko Zemlje,
+u istom smjeru kao i Zemlja, brzinom od jednog okretaja u dvije sekunde.
 
 ![planetScreenShot](../data/planetScreenShot.png)
