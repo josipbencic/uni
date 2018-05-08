@@ -474,4 +474,4 @@ Zemlja rotira oko sunca u negativnom smjeru brzinom od jednog okretaja u minuti 
 oko sebe u negativnom smjeru brzinom od jednog okretaja u 5 sekundi. Konačno, avion rotiratioko Zemlje,
 u istom smjeru kao i Zemlja, brtinom od jednog okretaja u dvije sekunde.
 
-![planetScreenShot](data/planetScreenShot.png)
+![planetScreenShot](../data/planetScreenShot.png)
