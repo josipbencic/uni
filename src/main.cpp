@@ -1,4 +1,3 @@
-// VERSION 1
 #include <SFML/Graphics.hpp>
 
 int main()

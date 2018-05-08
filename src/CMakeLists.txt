@@ -5,5 +5,5 @@ target_link_libraries("main" ${SFML_LIBRARIES})
 add_custom_command(
         TARGET main POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
-                ${CMAKE_SOURCE_DIR}/data/cb.bmp
+                ${CMAKE_SOURCE_DIR}/data/*
                 ${CMAKE_CURRENT_BINARY_DIR} )
