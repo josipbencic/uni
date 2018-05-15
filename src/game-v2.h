@@ -22,6 +22,8 @@ class Game {
   sf::RenderWindow mWindow;
   sf::Texture mTexture;
   sf::Sprite mSprite;
+  sf::CircleShape mCircle;
+
 
   sf::Time mTimePerFrame;
   float mSpeed;

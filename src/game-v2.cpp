@@ -1,11 +1,19 @@
-#include "game-v1.h"
+#include "game-v2.h"
 
-Game::Game() : mWindow(sf::VideoMode(800, 600), "Game-v1"), mSpeed(5.0f) {
+Game::Game()
+  : mWindow(sf::VideoMode(800, 600), "Game-v2")
+  , mSpeed(100.0f) {
   if (!mTexture.loadFromFile("cb.bmp"))
     throw std::runtime_error("Cannot open file cb.bmp!");
 
-  mSprite.setTexture(mTexture);
   mTimePerFrame = sf::seconds(1.f/60.f);
+
+  mSprite.setTexture(mTexture);
+  mSprite.setTextureRect({50, 20, 70, 60});
+  mSprite.move(15, 15);
+  mCircle.setRadius(50.f);
+  mCircle.setOutlineThickness(5.f);
+  mCircle.setFillColor(sf::Color(255.f, 0.f, 255.f));
 }
 
 // game-loop je sada u metodi run()
@@ -58,11 +66,13 @@ void Game::update(sf::Time const& dt) {
   if (mIsMovingRight) movement.x += mSpeed;
 
   mSprite.move(movement * dt.asSeconds());
+  mCircle.move(movement * dt.asSeconds());
 }
 
 // iscrtavanje
 void Game::render() {
   mWindow.clear();
+  mWindow.draw(mCircle);
   mWindow.draw(mSprite);
   mWindow.display();
 }
