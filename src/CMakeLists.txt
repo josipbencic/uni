@@ -1,4 +1,4 @@
-add_executable("main" main.cpp)
+add_executable("main" main.cpp game-v1.h game-v1.cpp)
 #target_link_libraries("main" sfml-graphics sfml-window sfml-system)
 target_link_libraries("main" ${SFML_LIBRARIES})
 target_compile_features(main PRIVATE cxx_range_for)
