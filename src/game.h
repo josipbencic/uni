@@ -14,7 +14,7 @@ class Game {
   // Procesiraj događaje
   void processEvents();
   // konstruiraj novo stanje igre
-  void update(sf::Time const & dt);
+  void update(sf::Time const& dt);
   // iscrtaj novo stanje
   void render();
 
@@ -28,7 +28,13 @@ class Game {
   sf::Sprite mPlane;
 
   sf::Time mTimePerFrame;
-  float mSpeed;
+  float mSunSpeed;
+  float mEarthSpeed;
+  float mPlaneSpeed;
+  float mEarthPhi;
+  float mPlanePhi;
+  float mEarthOrbitR;
+  float mPlaneOrbitR;
 
   bool mIsMovingUp = false;
   bool mIsMovingDown = false;
