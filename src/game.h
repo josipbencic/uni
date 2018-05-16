@@ -28,13 +28,13 @@ class Game {
   sf::Sprite mPlane;
 
   sf::Time mTimePerFrame;
-  float mSunSpeed;
   float mEarthSpeed;
   float mPlaneSpeed;
   float mEarthPhi;
   float mPlanePhi;
   float mEarthOrbitR;
   float mPlaneOrbitR;
+  float mEarthSelfRotSpeed;
 
   bool mIsMovingUp = false;
   bool mIsMovingDown = false;

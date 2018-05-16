@@ -1,16 +1,22 @@
-#include "game-v3.h"
+#include "game.h"
 
 #include <cmath>
 
+const double PI = 3.14159265358979323;
+
+#include <iostream>
+using namespace std;
+
 Game::Game()
-    : mWindow(sf::VideoMode(800, 600), "Game-v3"),
-      mSunSpeed(1/60.0f),
-      mEarthSpeed(15.0f/60.0f),
-      mPlaneSpeed(10.0f/60.0f),
+    : mWindow(sf::VideoMode(800, 600), "Game"),
+      mEarthSpeed(1 / 60.0f * PI),
+      mPlaneSpeed(PI),
       mEarthPhi(0.0f),
       mPlanePhi(0.0f),
-      mEarthOrbitR(300.0f),
-      mPlaneOrbitR(50.0f) {
+      mEarthOrbitR(250.0f),
+      mPlaneOrbitR(49.0f),
+      mEarthSelfRotSpeed(360.0f / 5.f)  // circle / sec
+{
   if (!mTextureSun.loadFromFile("SunRed.png")) {
     throw std::runtime_error("Cannot open file SunRed.png!");
   }
@@ -25,24 +31,23 @@ Game::Game()
   auto win_sz = mWindow.getSize();
 
   mSun.setTexture(mTextureSun);
-  mSun.setScale(0.12, 0.12);
   auto sun_sz = mTextureSun.getSize();
-  mSun.setPosition(win_sz.x / 2 - sun_sz.x * mSun.getScale().x / 2,
-                   win_sz.y / 2 - sun_sz.y * mSun.getScale().y / 2);
+  mSun.setOrigin(sun_sz.x / 2, sun_sz.y / 2);
+  mSun.setScale(0.12, 0.12);
+  mSun.setPosition(win_sz.x / 2, win_sz.y / 2);
 
   auto sunPos = mSun.getPosition();
   mEarth.setTexture(mTextureEarth);
   auto earth_sz = mTextureEarth.getSize();
+  mEarth.setOrigin(earth_sz.x / 2, earth_sz.y / 2);
   mEarth.setScale(0.12, 0.12);
-  mEarth.setPosition(sunPos.x + mEarthOrbitR - earth_sz.x * mEarth.getScale().x / 2,
-                     win_sz.y / 2 - earth_sz.y * mEarth.getScale().y / 2);
 
   auto earthPos = mEarth.getPosition();
   mPlane.setTexture(mTexturePlane);
   auto plane_sz = mTexturePlane.getSize();
+  mPlane.setOrigin(plane_sz.x / 2, plane_sz.y / 2);
   mPlane.setScale(0.12, 0.12);
-  mPlane.setPosition(earthPos.x + mPlaneOrbitR - plane_sz.x * mPlane.getScale().x / 2,
-                     win_sz.y / 2 - plane_sz.y * mPlane.getScale().y / 2);
+  mPlane.setRotation(90.f);
 }
 
 // game-loop je sada u metodi run()
@@ -98,6 +103,9 @@ void Game::update(sf::Time const& dt) {
   auto earthPos = mEarth.getPosition();
   mPlane.setPosition(earthPos.x + mPlaneOrbitR * std::cos(mPlanePhi),
                      earthPos.y + mPlaneOrbitR * std::sin(mPlanePhi));
+
+  mEarth.rotate(mEarthSelfRotSpeed * dt.asSeconds());
+  mPlane.rotate(mPlaneSpeed * dt.asSeconds() * 180.f / PI);
 }
 
 // iscrtavanje
