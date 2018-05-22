@@ -1,29 +1,33 @@
-#ifndef GAME_V1_H_INCLUDED
-#define GAME_V1_H_INCLUDED
+#ifndef GAME_H_INCLUDED
+#define GAME_H_INCLUDED
 
-#include <SFML/Graphics.hpp>
 #include "snake.h"
 #include "world.h"
+#include <SFML/Graphics.hpp>
 
-// Klasa koja predstavlja igru.
-class Game{
+class Game {
 public:
-    Game();
-    void run();
-private:
-    // Procesiraj događaje
-    void processEvents();
-    // konstruiraj novo stanje igre
-    void update(sf::Time dt);
-    // iscrtaj novo stanje
-    void render();
-private:
-    sf::RenderWindow mWindow;
-    World mWorld;
-    Snake mSnake;
-    sf::Time mTimePerFrame;
+  Game();
 
-    void handlePlayerInput(sf::Keyboard::Key code);
+  // starts the main loop
+  void run();
+
+private:
+  //  process everything caught by sfml
+  void processEvents();
+
+  // all game logic
+  void update(sf::Time dt);
+
+  void render();
+
+private:
+  sf::RenderWindow mWindow;
+  World mWorld;
+  Snake mSnake;
+  sf::Time mTimePerFrame;
+
+  void handlePlayerInput(sf::Keyboard::Key code);
 };
 
-#endif // GAME-V1_H_INCLUDED
+#endif // GAME_H_INCLUDED
