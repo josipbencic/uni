@@ -26,7 +26,7 @@ void Game::run() {
 }
 
 void Game::update(sf::Time dt) {
-  mSnake.update();
+  mSnake.update(dt);
   mWorld.update(mSnake);
 }
 
@@ -34,15 +34,19 @@ void Game::handlePlayerInput(sf::Keyboard::Key code) {
   switch (code) {
     case sf::Keyboard::Down: {
       mSnake.setDirection(Direction ::Down);
+      break;
     }
     case sf::Keyboard::Up: {
       mSnake.setDirection(Direction ::Up);
+      break;
     }
     case sf::Keyboard::Left: {
       mSnake.setDirection(Direction ::Left);
+      break;
     }
     case sf::Keyboard::Right: {
       mSnake.setDirection(Direction ::Right);
+      break;
     }
   }
 }
