@@ -60,10 +60,10 @@ public:
     mlost = !mlost;
   }
 
-  void extend();            // Povećaj zmiju za jedan blok.
-  void reset();             // Vrati zmiju na startnu startnu poziciju.
-  void update(sf::Time dt); // Update metoda.
-  void cut(int n);          // Odsjeci zadnjih n segmenata.
+  void extend();   // Povećaj zmiju za jedan blok.
+  void reset();    // Vrati zmiju na startnu startnu poziciju.
+  void update();   // Update metoda.
+  void cut(int n); // Odsjeci zadnjih n segmenata.
 
 private:
   void move(); // Pomakni zmiju za jedan blok u danom smjeru.

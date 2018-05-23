@@ -26,26 +26,34 @@ void Game::run() {
 }
 
 void Game::update(sf::Time dt) {
-  mSnake.update(dt);
+  mSnake.update();
   mWorld.update(mSnake);
 }
 
 void Game::handlePlayerInput(sf::Keyboard::Key code) {
   switch (code) {
     case sf::Keyboard::Down: {
-      mSnake.setDirection(Direction ::Down);
+      if (mSnake.getDirection() != Direction::Up) {
+        mSnake.setDirection(Direction::Down);
+      }
       break;
     }
     case sf::Keyboard::Up: {
-      mSnake.setDirection(Direction ::Up);
+      if (mSnake.getDirection() != Direction::Down) {
+        mSnake.setDirection(Direction::Up);
+      }
       break;
     }
     case sf::Keyboard::Left: {
-      mSnake.setDirection(Direction ::Left);
+      if (mSnake.getDirection() != Direction::Right) {
+        mSnake.setDirection(Direction::Left);
+      }
       break;
     }
     case sf::Keyboard::Right: {
-      mSnake.setDirection(Direction ::Right);
+      if (mSnake.getDirection() != Direction::Left) {
+        mSnake.setDirection(Direction::Right);
+      }
       break;
     }
   }

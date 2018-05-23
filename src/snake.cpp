@@ -4,7 +4,7 @@ Snake::Snake(int blockSize)
   : sf::Drawable(),
     mSnakeBody(1, {120, 160}),
     msize(blockSize),
-    mspeed(80),
+    mspeed(blockSize * 2.f / 60.f),
     mlives(3),
     mscore(0),
     mlost(false),
@@ -79,10 +79,9 @@ void Snake::reset() {
   mSnakeBody.push_back({120, 160});
 }
 
-void Snake::update(sf::Time dt) {
+void Snake::update() {
   checkCollision();
-  float delta = mspeed * dt.asSeconds();
-  mcurdelta += delta;
+  mcurdelta += mspeed;
   if (mcurdelta > msize) {
     mcurdelta -= msize;
     move();
