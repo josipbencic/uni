@@ -5,9 +5,9 @@
 #include "snake.h"
 #include "world.h"
 
-// Naša glavna state-klasa. Veći dio koda iz 
-// prethodne Game klase završit će ovdje s manjim izmjenama.   
-class PlayingState : public GameState{
+// Naša glavna state-klasa. Veći dio koda iz
+// prethodne Game klase završit će ovdje s manjim izmjenama.
+class PlayingState : public GameState {
 public:
 private:
 };
