@@ -3,19 +3,28 @@
 
 #include <SFML/Graphics.hpp>
 
-class Game{
+#include "world.h"
+
+
+class Game {
 public:
-    Game();
-    void run();
+  Game();
+
+  void run();
+
 private:
-    // Procesiraj događaje
-    void processEvents();
-    // konstruiraj novo stanje igre
-    void update(sf::Time const &);
-    // iscrtaj novo stanje
-    void render();
+  void processEvents();
+
+  void update(sf::Time const&);
+
+  void render();
+
+  void handleKeyPressed(sf::Keyboard::Key key);
+
 private:
-    // implementacijski detalji
+  sf::RenderWindow mWindow;
+  World mWorld;
+  sf::Time mTimePerFrame;
 };
 
 

@@ -1,4 +1,4 @@
-add_executable("main" main.cpp sceneGraph.cpp sceneGraph.h game.cpp game.h )
+add_executable("main" main.cpp sceneGraph.cpp sceneGraph.h game.cpp game.h world.h world.cpp)
 #target_link_libraries("main" sfml-graphics sfml-window sfml-system)
 target_link_libraries("main" ${SFML_LIBRARIES})
 target_compile_features(main  PUBLIC cxx_constexpr)
