@@ -68,7 +68,6 @@ void World::update(Snake& snake) {
     if (sx < mBlockSize || sx > mWindowSize.x - mBlockSize ||
         sy < mBlockSize || sy > mWindowSize.y - mBlockSize) {
       snake.lose();
-      snake.reset();
     }
   }
 }
@@ -77,6 +76,5 @@ void World::draw(sf::RenderTarget& target, sf::RenderStates states) const {
   for (int i = 0; i < 4; ++i) {
     target.draw(mBounds[i]);
   }
-
   target.draw(mApple);
 }

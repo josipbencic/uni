@@ -4,7 +4,7 @@ Snake::Snake(int blockSize)
   : sf::Drawable(),
     mSnakeBody(1, {120, 160}),
     msize(blockSize),
-    mspeed(blockSize * 2.f / 60.f),
+    mspeed(blockSize * 4.f / 60.f),
     mlives(3),
     mscore(0),
     mlost(false),
@@ -36,7 +36,6 @@ sf::Vector2i Snake::getPosition() {
 }
 
 void Snake::extend() {
-  mscore++;
   if (mSnakeBody.size() == 1) {
     sf::Vector2i offset;
     switch (mdir) {
@@ -69,6 +68,9 @@ void Snake::extend() {
   }
 }
 
+
+#include <iostream>
+using namespace std;
 void Snake::reset() {
   mdir = Direction::None;
   mlives = 3;
@@ -128,7 +130,6 @@ void Snake::checkCollision() {
       cut(it - begin(mSnakeBody));
       if (mlives <= 0) {
         lose();
-        reset();
       }
       break;
     }

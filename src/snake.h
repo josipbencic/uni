@@ -60,6 +60,14 @@ public:
     mlost = !mlost;
   }
 
+  void setSpeed(float x) {
+    mspeed = x;
+  }
+
+  float getSpeed() const {
+    return mspeed;
+  }
+
   void extend();   // Povećaj zmiju za jedan blok.
   void reset();    // Vrati zmiju na startnu startnu poziciju.
   void update();   // Update metoda.

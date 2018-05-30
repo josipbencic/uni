@@ -10,9 +10,9 @@ Game::Game()
     mTimePerFrame(sf::seconds(1 / 60.f)) {
   // Ovdje alocirati sva stanja i postaviti pokazivač na trenutno stanje.
   mpGameStates[GameState::Welcome] = new WelcomeState{this};
-  //mpGameStates[GameState::Playing] = new PlayingState{};
-  //mpGameStates[GameState::Won] = new WonState{};
-  //mpGameStates[GameState::Lost] = new LostState{};
+  mpGameStates[GameState::Playing] = new PlayingState{this};
+  mpGameStates[GameState::Won] = new WonState{this};
+  mpGameStates[GameState::Lost] = new LostState{this};
   mpGameStates[GameState::Exiting] = new ExitingState{this};
 
   mpCurrentGameState = mpGameStates[GameState::Welcome];
