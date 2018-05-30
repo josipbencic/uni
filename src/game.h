@@ -9,7 +9,9 @@
 class Game {
   friend class WelcomeState;
   friend class ExitingState;
-  // add more?
+  friend class PlayingState;
+  friend class WonState;
+  friend class LostState;
 
 public:
   Game();

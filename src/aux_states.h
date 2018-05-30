@@ -47,12 +47,34 @@ private:
 
 class WonState : public GameState {
 public:
+  WonState(Game* game);
+
+  virtual void update(sf::Time dt);
+
+  virtual void handlePlayerInput(sf::Keyboard::Key code);
+
+  virtual void render();
+
 private:
+  sf::Font mFont;
+  sf::Text mTextTitle;
+  sf::Text mTextPressAnyKey;
 };
 
 class LostState : public GameState {
 public:
+  LostState(Game* game);
+
+  virtual void update(sf::Time dt);
+
+  virtual void handlePlayerInput(sf::Keyboard::Key code);
+
+  virtual void render();
+
 private:
+  sf::Font mFont;
+  sf::Text mTextTitle;
+  sf::Text mTextPressAnyKey;
 };
 
 #endif // AUX_STATES_H
