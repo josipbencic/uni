@@ -3,17 +3,31 @@
 ## Problem
 
 
-Željeli bismo  s vektorima koristiti izraze poput
+Željeli bismo  imati klasu vektora na kojima su definirane osnovne aritmeričke
+operacije, zbrajanje, oduzimanje i množenje skalarom, tako da
+u aplikacijskom kodu možemo koristiti __prirodnu sintaksu__ vektorskih operacija .
+Na primjer, ako su `x`, `y` i `z` vektori, onda želimo pisati:
 
 ```C++
 z = 1.2*x + y*2.0
 ```
+s istim efektom kao da smo napisali
+```C++
+for(size_t i=0; i < dim; ++i) z[i] = 1.2*x[i] + y[i]*2.0;
+```
+(`dim` je dimenzija vektor).
 
+Implementacija traženih operatora je vrlo jednostavna. Potrebno je
+operaore `+`, `-` i `*` definirati kao globalne funkcije. Problem
+s tim pristupom je što svaka operacija nužno kreira privremeni
+vektor (provjerite) što vodi na gubitak efikasnosti u odnosu na
+operacije kodirane u for-petlji po svim elementima. Takav je gubitak
+efikasnosti neprihvatljiv u svim numerički intezivnim aplikacijama.
 
-bez gubitka efikasnosti koji dolazi od alokacije privremenih vektora. Korištenjem globalnih operatora
-množenja i zbrajanja dolazi do alokacije
-pomoćnih vektora koji se nakon operacije pridruživanja uništavaju. Sa stanovišta efikasnosti koda to je
-neprihvatljivo.
+U ovom zadatku koristimo metodu **lijenog izračunavanja** kako bismo
+implementirali potrebne operatore
+bez gubitka efikasnosti koji dolazi od alokacije privremenih vektora.
+
 
 
 ### Mjerenje (ne)efikasnosti
@@ -21,7 +35,7 @@ neprihvatljivo.
 
 
 
-- Implementiramo aritmetičke operacije za statički alocirani vektor `std::array`  kao globalne funkcije.
+Implementiramo aritmetičke operacije za statički alocirani vektor `std::array`  kao globalne funkcije.
 Na primjer, za zbrajanje imamo implementaciju:
 
 ```C++
@@ -39,7 +53,7 @@ Taj nam operator omogućava uobičajenu sintaksu na vektorima (`A1`, `A2` i `A3`
 A3 = A1 + A2;
 ```
 
--  Uspoređujemo vrijeme izvršavanja gornje funkcije s običnom for-petljom.
+Uspoređujemo vrijeme izvršavanja gornje funkcije s običnom for-petljom.
 
 ```c++
 for(unsigned int i=0; i < dim; ++i)
@@ -47,20 +61,24 @@ for(unsigned int i=0; i < dim; ++i)
 }
 ```
 
-Rezultati pokazuju da je obična petlja puno brža od upotrebe operatora zbrajanja. Razlika ovisi o
-prevodiocu i stupnju optimizacije.    
+Rezultati pokazuju da je obična petlja puno brža od upotrebe operatora
+ zbrajanja. Razlika ovisi o prevodiocu i stupnju optimizacije. Vidjeti
+ program `src/test_speed.cpp`.   
 
 ##  Ideja optimizacije aritmetičkih operacija nad vektorima
 
 Aritmetičke operacije koje barataju cijelim vektorima ne smiju niti u jednom trenutku
-alocirati privremene vektore. Uz to moraju nuditi prirodnu sintaksu aritmetičkih operacija.
+alocirati privremene vektore. Uz to moraju nuditi prirodnu sintaksu aritmetičkih operacija. Takav se dizajn može postići metodom
+lijenog izračunavanja. Osnovna ideja je sljedeća:
 
-- Odgoditi svo računanje do poziva operatoru pridruživanja koji tada može direktno
+- Odgoditi svo računanje do poziva operatoru pridruživanja koji tada
+   može direktno
   izračunatu vrijednost smjestiti u vektor na lijevoj strani znaka jednakosti.
--  To znači da operatori množenja, oduzimanja i zbrajanja trebaju vratiti
+
+To znači da operatori množenja, oduzimanja i zbrajanja trebaju vratiti
    **reprezentaciju operanada i operacije** koju treba izvršiti.
-- Sama operacija nije izvršena pozivom operatora već je u tom trenutku konstruiran objekt koji zna kako
-   izvršiti operaciju kroz svoj *operator indeksiranja*.
+ Sama operacija nije izvršena pozivom operatora već je u tom trenutku konstruiran objekt koji zna kako
+   izvršiti operaciju kroz svoj **operator indeksiranja**.
    Taj će operator biti pozvan tek u operatoru pridruživanja.
 
 
@@ -77,7 +95,7 @@ ima reprezentaciju
 
 ![](doc/expression.png)
 
-Taj izraz možemo kodirati pomoću predložaka kao:
+Taj izraz možemo kodirati pomoću predložaka na sljedeći način:
 
 ```c++
 Add< Mult< Scalar, Vector >, Mult< Vector, Scalar >  >
@@ -120,6 +138,8 @@ class Add{
 - Za efikasnost je važno pamtiti reference da izbjegnemo kopiranje objekata.
 - Bazični operandi su skalari ili vektori, ali općenito operandi su klase koje reprezentiraju neke operacije
 na vektorima i skalarima.
+- Drugi važni dio ove konstrukcije je taj što je operacija kodirana u
+**operatoru indeksiranja**.
 
 
 ## Klasa koja reprezentira skalare
@@ -279,11 +299,18 @@ operator+(Vector<N,R1> const& a, Vector<N,R2> const& b){
 ```
 
 - *Životni vijek* tih objekta mora biti stoga sve do kraja izračunavanja!
-- Vrijednost `a.rep()` ima vijek trajanja vektora `a`, a svi  vektori traju do kraja
-izračunavanja.
+- Vrijednost `a.rep()` ima vijek trajanja vektora `a`, a svi  vektori
+traju do kraja izračunavanja jer moraju biti  konstruirani prije nego
+što uđu u aritmetički izraz.
+- Skalari, s druge strane, često ulaze u izraze kao konstante, a ne
+ kao varijable koje žive izvan izraza koji se izračunava. Stoga
+ `a.rep()`, ako je `a` skalar ne garantira da će referencu na objekt
+  koji živi za cijelo vrijeme trajanja izraza. Stoga u klasu Scalar
+  nismo niti stavili metodu `rep()`.
 
 
-**Što je sa skalarima?**
+
+**Primjer**
 
 ```C++
 // Množenje skalar * vektor
@@ -343,136 +370,34 @@ class Add{
 }
 ```
 
-*Zadatak:* Ispraviti sve ostale klase operacija i testirati kod.
 
-## Zadatak 1
+## Zadatak
 
 - Implementirati u potpunosti klasu `Vector` i sve pomoćne klase.
--   Kreirajte operator ispisa koji će ispisivati strukturu naših operacija.
-Na primjer, sljedeći kod na vektorima `x` i `y` dimenzije 3
-```C++
-std::cout << " 1 + (1.2 * x + y * 2.0)*4.0 - x + 2 = " << 1.0 + (1.2*x + y*2.0)*4.0 - x + 2.0 << std::endl;
-```
 
-daje ispis
-```C++
-1 + (1.2 * x + y * 2.0)*4.0 - x + 2 = Add<Sub<Add<1,Mult<Add<Mult<1.2,Array<3>>,Mult<Array<3>,2>>,4>>,Array<3>>,2>
-```
+- Operacije testirati u main-funkciji u kojoj na jednom primjeru
+treba izmjeriti vrijeme (u mikrosekundama) potrebno da se operacija
+izvrši pomoću definiranih operatora i pomoću for-petlje.
 
-Za to je potrebno dodati operator ispisa svim klasam koje reprezentiraju operacije, te
-klasama koje reprezentiraju vektore i skalare.  Te operatore ispisa treba napraviti *prijateljima*
-odgovarajućih klasa budući da moraju dohvaćati privatene podatke.
-
-- Program testirati na sljedećoj main-funkciji:
-
-```C++
-#include <iostream>
-#include <ctime>
-#include <chrono>
-
-#include "operations.h"
-
-using std::cout;
-using std::endl;
-
-void test(bool t)
-{
-    if(t) cout << "o.k.\n";
-    else  cout << "error.\n";
-}
-
-int main()
-{
-    const size_t max = 3;
-
-    Vector<max>  x, y(2.0), z;
-    x[0]=1.0; x[1]= 1.5; x[2]=1;
-
-    z = x + y;
-    test(z[2] == x[2]+y[2]);
-    z = 2.0*x + y;
-    test(z[1] == 2*x[1]+y[1]);
-    z = x*2.0 + y;
-    test(z[0] == 2*x[0]+y[0]);
-    z = 4.0*(x*2.0 + y);
-    test(z[1] == 8*x[1]+4*y[1]);
-    z = 1.0 + (1.2*x + y*2.0)*4.0 - x + 2.0;
-    test(z[2] == 3+4*(1.2*x[2]+2*y[2]) -x[2]);
-    z[1] = 2.0;
-    z = z*z;
-    test(z[1]==4.0);
-
-    cout << " x+ y      = " << x+y << endl;
-    cout << " 2*x+ y    = " << 2.0*x+y << endl;
-    cout << " x*2+y     = " << x*2.0 + y << endl;
-    cout << " 4*(x*2+y) = " << 4.0*(x*2.0 + y) << endl;
-    cout << " 1 + (1.2 * x + y * 2.0)*4.0 - x + 2 = "
-         << 1.0 + (1.2*x + y*2.0)*4.0 - x + 2.0 << endl;
-
-
-    const size_t dim = 100000;
-    double cc = 3.0;
-    Vector<dim> A1(1.0);
-    Vector<dim> A2(2.0);
-    Vector<dim> A3(0.0);
-
-    auto start = std::chrono::system_clock::now();
-    for(int c=0; c<1000; ++c){
-        double coef = 1.0;
-        for(unsigned int i=0; i < dim; ++i)
-            A3[i] = 2.0*A1[i] + coef*(A2[i]-A1[i]);
-        coef += 0.01;
-    }
-    auto end = std::chrono::system_clock::now();
-    auto duration =std::chrono::duration_cast<std::chrono::milliseconds>
-                    (std::chrono::system_clock::now() - start);
-
-    cout<< "C time for " << dim << " additions = "<<  duration.count() <<" ms.\n";
-    cout << A3[5678] << endl; // Da spriječi potpunu eliminaciju koda s opcijom -O2
-
-    start = std::chrono::system_clock::now();
-    for(int c=0; c<1000; ++c){
-        double coef = 1.0;
-        A3 = 2.0*A1 + coef*(A2-A1);
-        coef += 0.01;
-    }
-    end = std::chrono::system_clock::now();
-    duration = std::chrono::duration_cast<std::chrono::milliseconds>
-                    (std::chrono::system_clock::now() - start);
-
-    cout<< "C++ time for " << dim << " additions = "
-         <<  duration.count() <<" ms.\n";
-    cout << A3[5678] << endl;// Da spriječi potpunu eliminaciju koda s opcijom -O2
-
-    return 0;
-}
-```
-
-
-- Glavni program neka se zove *main.cpp*, a  sav kod neka je u datoteci zaglavlja *operations.h*.
-
-== Zadatak 2
-
-Kreirajte klasu matrica:
+- Kreirajte klasu matrica:
 ```C++
 template <typename T, size_t N, size_t M>
 class Array2D{
   private:
      T m_data[N][M];
   public:
-     Array2D & operator=(T rhs);
-
      const T& operator()(size_t i, size_t j) const {return m_data[i][j];}
      T& operator()(size_t i, size_t j) {return m_data[i][j];}
+
+      // Izbrisana kontrola kopiranja
 
      size_t rows() const { return N; }
      size_t cols() const { return M; }
 };
 ```
 
-
-
-Uključite množenje matrice i vektora u sustav. Sljedeće operacije moraju biti dopustive i svo računanje s mora vršiti u
+Uključite množenje matrice i vektora u sustav. Sljedeće operacije
+ moraju biti dopustive i svo računanje  mora se vršiti u
 operatoru pridruživanja:
 
 ```C++
@@ -485,28 +410,10 @@ makeTridiagonalMatrix(A,2.0,-1.0);
 Vector<max>  x, y(2.0), z(3.0);
 x[0]=1.0; x[1]= 1.5; x[2]=1;
 z = A*x;
-std::cout << "z = A*x = " << z << std::endl;
 z = A*x +y;
-std::cout << "z = A*x +y = " << z << std::endl;
 z = A*(x*3.0 + y);
-std::cout << "z = A*(x*3 +y) = " << z << std::endl;
 ```
 
 Klasa `Matrix` je klasa matrice koju implementira `Array2D<double,N,M>`.
-Bit će potrebno napisati novu funkciju množenja (matrica s vektorom) i specijalizirati klasu koja
+Bit će potrebno napisati novu funkciju množenja (matrice i vektora) i specijalizirati klasu koja
 predstavlja množenje jer ona obavlja operaciju množenja.
-
-
-
-U složenijoj verziji ovog zadatka treba dozvoliti operacije oblika:
-
-```C++
-const size_t max = 3;
-Matrix<max,max> A, B;
-
-// Napravi tridijagonalnu matricu s 2 na dijagonali i -1 na sporednim dijagonalama.
-makeTridiagonalMatrix(A,2.0,-1.0);
-
-Vector<max> z(3.0);
-z = (2.0*A+B*5.0)*(x*3.0 + y);
-```
