@@ -94,7 +94,6 @@ WonState::WonState(Game* game)
   if (!mFont.loadFromFile("Comfortaa-Bold.ttf")) {
     throw std::runtime_error("Cannot load fonts Comfortaa-Bold.ttf");
   }
-
   mTextTitle.setFont(mFont);
 
   auto* playstate = dynamic_cast<PlayingState*>(mpGame->mpGameStates[GameState::Playing]);
