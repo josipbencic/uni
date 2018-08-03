@@ -1,0 +1,23 @@
+sudo: false
+
+language:
+  - cpp
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-5.4
+
+script:
+  - mkdir -p build
+  - cd build
+  - CXX=/usr/bin/g++-5.4 cmake ..
+  - make
+  - make test
+
+
+notifications:
+email: 
+  - jurak@math.hr
