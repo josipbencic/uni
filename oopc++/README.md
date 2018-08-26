@@ -1,4 +1,4 @@
-#### Object Oriented (and Generic) Programming in C++
+# Object Oriented (and Generic) Programming in C++
 
 An elective course, prerequsites are 4 programming courses in C and C++.
 Most of the lab notes are in Croatian, but I hope to add short summaries in English soon.
