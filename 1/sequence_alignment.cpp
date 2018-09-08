@@ -36,8 +36,8 @@ int main(int argc, char** argv) {
 
     auto blosum = blosum50();
 
-    string x = "HPEW" ;//"HPEWAAKEGHI"; // argv[1];
-    string y = "PWAA"; //"_PWALVN_GSE"; // argv[2];
+    string x = "HPEW__" ;//"HPEWAAKEGHI"; // argv[1];
+    string y = "_P_WAA"; //"_PWALVN_GSE"; // argv[2];
     {
         auto up = [](char x) -> char { return toupper(x); };
         transform(begin(x), end(x), begin(x), up);

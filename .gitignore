@@ -1,5 +1,7 @@
 in.txt
 in
 
+*exe
+
 *.vscode*
 __pycache__/

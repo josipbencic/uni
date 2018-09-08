@@ -86,14 +86,14 @@ def solve():
     acids, bm = load_acids_blosum()
     
     # test case
-    x='HPEW'
-    y='PW'
+    x='PW'
+    y='AHPAWA'
     m, n = len(x), len(y)
     sm = compute_sm(x, y, n, m, bm, acids)
 
     u, d = traceback(n, m, x, y, sm, bm, acids)
     print(u)
     print(d)    
-    #print(sm)
+    print(sm)
 
 solve()

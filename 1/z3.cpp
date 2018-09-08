@@ -7,8 +7,6 @@
 using namespace std;
 
 pair<string,string> createArray(string a, string b) {
-    string up;
-    string down;
 
     vector<int> v;  // 1 -> b ; 0 -> a
     {
@@ -45,6 +43,9 @@ pair<string,string> createArray(string a, string b) {
     }
     cout << endl;
 
+    string up;
+    string down;    
+    
     int bit = 0;
     int ait = 0;
     int last = 0;
